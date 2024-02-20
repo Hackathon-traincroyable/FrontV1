@@ -8,13 +8,10 @@ export default function Example() {
           autoPlay
           muted
           loop
-          co
         >
           <source src="assets/video.mp4" type="video/mp4" />
-          Votre navigateur ne supporte pas les vidéos.
         </video>
 
-    
 <div className="relative isolate -z-10">
   <div className="overflow-hidden">
     <div className="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
@@ -32,7 +29,54 @@ export default function Example() {
   </div>
 </div>
 </div>
-{/* Features section */}
+
+{/* section */}
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+  {/* Première carte avec formulaire */}
+  <div className="bg-white shadow-md rounded-lg p-6">
+    <h3 className="text-lg font-semibold mb-4">Où allez-vous?</h3>
+    <form>
+      <div className="mb-4">
+        <label htmlFor="depart" className="block text-sm font-medium text-gray-700">Départ</label>
+        <input type="text" id="depart" name="depart" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Ville de départ" />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="arrive" className="block text-sm font-medium text-gray-700">Arrivée</label>
+        <input type="text" id="arrive" name="arrive" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Ville d'arrivée" />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="date" className="block text-sm font-medium text-gray-700">Date</label>
+        <input type="date" id="date" name="date" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+      </div>
+      <button type="submit" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Rechercher</button>
+    </form>
+  </div>
+  {/* info  */}
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+  {/* Première carte avec formulaire */}
+  <div className="bg-white shadow-md rounded-lg p-6">
+    <h3 className="text-lg font-semibold mb-4">Où allez-vous?</h3>
+    <form>
+      <div className="mb-4">
+        <label htmlFor="depart" className="block text-sm font-medium text-gray-700">Départ</label>
+        <input type="text" id="depart" name="depart" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Ville de départ" />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="arrive" className="block text-sm font-medium text-gray-700">Arrivée</label>
+        <input type="text" id="arrive" name="arrive" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Ville d'arrivée" />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="date" className="block text-sm font-medium text-gray-700">Date</label>
+        <input type="date" id="date" name="date" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+      </div>
+      <button type="submit" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Rechercher</button>
+    </form>
+  </div>
+</div>
+  
+</div>
+
+
 </main>
 
   )
