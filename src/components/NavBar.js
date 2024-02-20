@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+
+
 
 const navigation = [
   { name: "Accueil", href: "/" },
@@ -11,11 +13,12 @@ const navigation = [
 
 export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   return (
-    <div className="bg-white ">
+    <div className="">
       {/* Header */}
-      <header className="absolute inset-x-0 top-0 z-50">
+      <header className="absolute inset-x-0 top-0 z-50 bg-black-100 bg-opacity-25 ">
         <nav
           className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
           aria-label="Global"
@@ -28,7 +31,7 @@ export default function Example() {
                 alt="logo compagnie"
               />
             </a>
-            <span className="ml-2 slide-in text-white uppercase" >TrainCroyable</span>
+            <span className="ml-2  text-white uppercase" >TrainCroyable</span>
           </div>
 
           <div className="flex lg:hidden">
@@ -42,14 +45,14 @@ export default function Example() {
             </button>
           </div>
           <div className="hidden lg:flex lg:gap-x-12 uppercase">
-            {navigation.map((item) => (
-              <Link
-                to={item.href}
-                className="text-sm font-semibold leading-6  text-white hover:border-b hover:border-blue-500 "
-              >
-                {item.name}
-              </Link>
-            ))}
+          {navigation.map((item) => (
+  <Link
+    to={item.href}
+    className={`text-sm font-semibold leading-6 ${location.pathname === '/' ? 'text-white' : 'text-black'} hover:border-b hover:border-blue-500`}
+  >
+    {item.name}
+  </Link>
+))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             {/* Pastille de profil */}
