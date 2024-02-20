@@ -1,5 +1,4 @@
-import "./App.css";
-
+import './style/globale.css';
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import LogSign from "./pages/LogSign";
