@@ -24,20 +24,20 @@ export default function Example() {
           aria-label="Global"
         >
           <div className="flex lg:flex-1 items-center">
-            <a href="/" className="-m-1.5 p-1.5">
-              <img
-                className="h-20 w-auto"
-                src="assets/logo.svg"
-                alt="logo compagnie"
-              />
-            </a>
-            <span className="ml-2  text-white uppercase" >TrainCroyable</span>
+          <a href="/" className="-m-1.5 p-1.5">
+  <img
+    className={`h-20 w-auto ${location.pathname === '/' ? 'class-pour-home' : 'class-pour-autres-pages'}`}
+    src={location.pathname === '/' ? "assets/logoblanc.svg" : "assets/logoblack.svg"}
+    alt="logo compagnie"
+  />
+</a>
+            <span className={`ml-2 uppercase ${location.pathname === '/' ? 'text-white' : 'text-black'}`} >TrainCroyable</span>
           </div>
 
           <div className="flex lg:hidden">
             <button
               type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white"
               onClick={() => setMobileMenuOpen(true)}
             >
               <span className="sr-only">Open main menu</span>
