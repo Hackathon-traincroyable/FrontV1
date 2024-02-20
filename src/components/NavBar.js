@@ -24,7 +24,7 @@ export default function Example() {
             <a href="/" className="-m-1.5 p-1.5">
               <img
                 className="h-20 w-auto"
-                src="assets/logo.jpg"
+                src="assets/logo.svg"
                 alt="logo compagnie"
               />
             </a>
