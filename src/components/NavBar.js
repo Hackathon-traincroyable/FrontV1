@@ -13,7 +13,7 @@ export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="bg-white">
+    <div className="bg-white ">
       {/* Header */}
       <header className="absolute inset-x-0 top-0 z-50">
         <nav
@@ -24,11 +24,11 @@ export default function Example() {
             <a href="/" className="-m-1.5 p-1.5">
               <img
                 className="h-20 w-auto"
-                src="logo.jpg"
+                src="assets/logo.jpg"
                 alt="logo compagnie"
               />
             </a>
-            <span className="ml-2 slide-in">TrainCroyable</span>
+            <span className="ml-2 slide-in text-white uppercase" >TrainCroyable</span>
           </div>
 
           <div className="flex lg:hidden">
@@ -45,7 +45,7 @@ export default function Example() {
             {navigation.map((item) => (
               <Link
                 to={item.href}
-                className="text-sm font-semibold leading-6 text-gray-900 hover:border-b hover:border-blue-500 "
+                className="text-sm font-semibold leading-6  text-white hover:border-b hover:border-blue-500 "
               >
                 {item.name}
               </Link>

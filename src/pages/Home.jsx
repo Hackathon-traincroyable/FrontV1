@@ -1,4 +1,3 @@
-
 export default function Example() {
   return (
 <main className="isolate">
@@ -9,8 +8,9 @@ export default function Example() {
           autoPlay
           muted
           loop
+          co
         >
-          <source src="public\video.mp4" type="video/mp4" />
+          <source src="assets/video.mp4" type="video/mp4" />
           Votre navigateur ne supporte pas les vidéos.
         </video>
 
