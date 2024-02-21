@@ -1,10 +1,10 @@
-import "./App.css";
-
+import './style/globale.css';
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import LogSign from "./pages/LogSign";
 import Reservation from "./pages/Reservation";
 import NavBar from "./components/NavBar";
+
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -20,6 +20,7 @@ function App() {
           <Route path="/logsign" element={<LogSign />} />
         </Routes>
       </Router>
+
     </>
   );
 }
