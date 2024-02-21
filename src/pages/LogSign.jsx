@@ -145,10 +145,10 @@ const SignUpForm = () => {
             </div>
           </div>
           {/* SUBMIT */}
-          <div className="">
-            <button
+          <div className="flex justify-center">
+          <button
               type="submit"
-              className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white uppercase"
+              className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white uppercase hover:bg-blue-700 transition duration-300"
             >
               s'inscrire
             </button>
@@ -259,10 +259,10 @@ const ConnexionForm = () => {
             </div>
           </div>
           {/* SUBMIT */}
-          <div className="">
+          <div className="flex justify-center">
             <button
               type="submit"
-              className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
+              className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white uppercase hover:bg-blue-700 transition duration-300"
             >
               Connexion
             </button>
