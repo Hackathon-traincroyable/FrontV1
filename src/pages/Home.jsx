@@ -30,42 +30,45 @@ export default function Example() {
 </div>
 </div>
 
-{/* section centrée et plus petite */}
+{/* section centrée avec ajustement des colonnes */}
 <div className="flex justify-center">
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-6 max-w-xxl">
-    {/* Première carte avec formulaire */}
-    <div className="bg-white shadow-md rounded-lg p-6">
-      <h3 className="text-lg font-semibold mb-4">Où allez-vous?</h3>
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 max-w-6xl"> {/* Utilisez 3 colonnes au lieu de 2 pour un contrôle plus fin */}
+    {/* Première carte avec formulaire, occupe 1 fraction */}
+    <div className="md:col-span-1 bg-white shadow-lg rounded-lg p-8"> {/* Ajustez pour que cette div occupe 1/3 de l'espace disponible */}
+      <h3 className="text-xl font-semibold mb-6">Où allez-vous?</h3>
       <form>
-        <div className="mb-4">
-          <label htmlFor="depart" className="block text-sm font-medium text-gray-700">Départ</label>
-          <input type="text" id="depart" name="depart" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Ville de départ" />
+      <div className="mb-6"> {/* Augmentez le margin-bottom */}
+          <label htmlFor="depart" className="block text-base font-medium text-gray-700">Départ</label> {/* Augmentez la taille du texte */}
+          <input type="text" id="depart" name="depart" className="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-base" placeholder="Ville de départ" /> {/* Augmentez la taille du texte et le margin-top */}
         </div>
-        <div className="mb-4">
-          <label htmlFor="arrive" className="block text-sm font-medium text-gray-700">Arrivée</label>
-          <input type="text" id="arrive" name="arrive" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Ville d'arrivée" />
+        <div className="mb-6">
+          <label htmlFor="arrive" className="block text-base font-medium text-gray-700">Arrivée</label>
+          <input type="text" id="arrive" name="arrive" className="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-base" placeholder="Ville d'arrivée" />
         </div>
-        <div className="mb-4">
-          <label htmlFor="date" className="block text-sm font-medium text-gray-700">Date</label>
-          <input type="date" id="date" name="date" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+        <div className="mb-6">
+          <label htmlFor="date" className="block text-base font-medium text-gray-700">Date</label>
+          <input type="date" id="date" name="date" className="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-base" />
         </div>
-        <button type="submit" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Rechercher les meilleurs prix</button>
+        <button type="submit" className="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Rechercher les meilleurs prix</button> 
       </form>
     </div>
-    {/* Info */}
-    <div className="bg-white shadow-md rounded-lg p-6">
-      <h3 className="text-lg font-semibold mb-4 text-center uppercase">meilleur prix</h3>
+    {/* Info, occupe 2 fractions */}
+    <div className="md:col-span-2 bg-white shadow-lg rounded-lg p-8"> {/* Ajustez pour que cette div occupe 2/3 de l'espace disponible */}
+      <h3 className="text-xl font-semibold mb-6 text-center uppercase">meilleur prix</h3>
       {/* Contenu de la deuxième colonne ici */}
-      <div className="flex items-center justify-between bg-white rounded-lg shadow-md p-6">
-        <h4 className="text-lg font-semibold">Départ: Paris - Arrivée: Nice</h4>
-        <p className="text-md">Date: 2023-05-20</p>
-        <p className="text-md">Prix: 85€</p>
-        <button className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Choisir</button>
+      <div className="flex flex-col space-y-4"> {/* Utilisez flex-col et space-y pour espacer verticalement les éléments */}
+        <div className="text-center">
+          <h4 className="text-xl font-semibold">Départ: Paris - Arrivée: Nice</h4> {/* Augmentez la taille du texte */}
+          <p className="text-lg">Date: 2023-05-20</p> {/* Augmentez la taille du texte */}
+          <p className="text-lg">Prix: 85€</p> {/* Augmentez la taille du texte */}
+        </div>
+      <div className="flex flex-col space-y-4">
+      <button className="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Choisir</button>
       </div>
     </div>
   </div>
 </div>
-
+</div>
 
 </main>
 
