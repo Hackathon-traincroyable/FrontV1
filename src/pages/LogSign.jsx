@@ -1,5 +1,6 @@
 import { useState } from "react";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignUpForm = () => {
   const [signUpFormData, setSignUpFormData] = useState({
@@ -29,6 +30,7 @@ const SignUpForm = () => {
         const data = await response.json();
         // Faire quelque chose avec la réponse du backend, par exemple, enregistrer le token
         console.log("Token reçu du backend:", data.token);
+        toast.success("Vous êtes bien inscrit !")
         // Reset les inputs
         setSignUpFormData({
           firstName: "",
@@ -40,9 +42,11 @@ const SignUpForm = () => {
       } else {
         // Gérer les erreurs ici
         console.error("Erreur lors de la requête:", response.status);
+        toast.error("Erreur lors de l'inscription.");
       }
     } catch (error) {
       console.error("Erreur lors de la requête:", error);
+      toast.error("Erreur lors de l'inscription.");
     }
   };
 
@@ -169,14 +173,16 @@ const ConnexionForm = () => {
 
         //Sauvegarde du token dans le local storage
         localStorage.setItem("token", data.token);
-
         console.log("Token reçu du backend:", data.token);
+        toast.success("Connexion réussie !");
       } else {
         // Gérer les erreurs ici
         console.error("Erreur lors de la requête:", response.status);
+        toast.error("Erreur lors de la connexion.");
       }
     } catch (error) {
       console.error("Erreur lors de la requête:", error);
+      toast.error("Erreur lors de la connexion.");
     }
   };
 
@@ -257,7 +263,8 @@ const ConnexionForm = () => {
 
 export default function LogSign() {
   return (
-    <main className="isolate">
+    <main className="isolate ">
+     <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover  style={{ top: '100px' }}  />
      <div className="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
       <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen">
         {/* SIGN IN */}
