@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+
 
 const SignUpForm = () => {
   const [signUpFormData, setSignUpFormData] = useState({
@@ -10,6 +10,8 @@ const SignUpForm = () => {
     password: "",
   });
 
+
+  
   const handleSignUp = async (e) => {
     e.preventDefault();
 
@@ -44,6 +46,7 @@ const SignUpForm = () => {
     }
   };
 
+  
   const handleInputSignUpChange = (e) => {
     setSignUpFormData({ ...signUpFormData, [e.target.name]: e.target.value });
   };
@@ -254,10 +257,11 @@ const ConnexionForm = () => {
 
 export default function LogSign() {
   return (
-    <div className="all">
+    <main className="isolate">
+     <div className="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
       <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen">
         {/* SIGN IN */}
-        <section className="relative flex flex-wrap items-center justify-center w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24 border-r-2 lg:border-r-2 border-0">
+        <section className="relative flex flex-wrap items-center justify-center w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24 ">
           <SignUpForm />
         </section>
         {/* LOGIN */}
@@ -266,5 +270,6 @@ export default function LogSign() {
         </section>
       </div>
     </div>
+    </main>
   );
 }
