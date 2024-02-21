@@ -24,7 +24,7 @@ export default function Example() {
                       <p className="text-lg flex-shrink-0">Date: 2023-05-20</p>
                       <p className="text-lg flex-shrink-0">Prix: 85€</p>
                     </div>
-                    <button className="mt-5 sm:mt-0 sm:ml-4 inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                    <button className="mt-5 sm:mt-4 sm:ml-4 inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-6 w-6 mr-2"
