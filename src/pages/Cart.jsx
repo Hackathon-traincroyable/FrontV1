@@ -42,13 +42,17 @@ export default function Example() {
                       Supprimer
                     </button>
                   </div>
-                </div>
-
-                <div className="text-center py-8">
-                  <div className="mt-6">
-                    <div className="max-w-4xl mx-auto">
-                      <div className="md:col-span-2 bg-white shadow-lg rounded-lg p-8"></div>
-                    </div>
+                  <div className="flex justify-between items-center mt-8 p-4 bg-gray-100 rounded-lg">
+                    <h3 className="text-xl font-semibold">Total Prix:</h3>
+                    <p className="text-xl">85€</p>
+                  </div>
+                  <div className="flex justify-end space-x-4 mt-8">
+                    <button className="inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 uppercase">
+                      Payer
+                    </button>
+                    <button className="inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 uppercase">
+                      Se connecter pour payer
+                    </button>
                   </div>
                 </div>
               </div>
