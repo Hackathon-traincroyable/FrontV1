@@ -30,6 +30,7 @@ const SignUpForm = () => {
         // Faire quelque chose avec la réponse du backend, par exemple, enregistrer le token
         console.log("Token reçu du backend:", data.token);
         toast.success("Vous êtes bien inscrit !")
+
         // Reset les inputs
         setSignUpFormData({
           firstName: "",
@@ -68,29 +69,31 @@ const SignUpForm = () => {
         >
           {/* Nom, Prénom, et Âge en ligne */}
           <div className="flex flex-wrap -mx-3 mb-6">
-            {/* Prénom */}
+            {/* nom */}
             <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <label htmlFor="firstname" className="sr-only">
-                Prénom
-              </label>
-              <input
-                type="text"
-                name="firstName"
-                className="w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm"
-                placeholder="prénom"
-                onChange={handleInputSignUpChange}
-              />
-            </div>
-            {/* Nom */}
-            <div className="w-full md:w-1/3 px-3">
-              <label htmlFor="lastname" className="sr-only">
+            <label htmlFor="lastname" className="sr-only">
                 Nom
               </label>
               <input
                 type="text"
                 name="lastName"
                 className="w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm"
-                placeholder="nom"
+                required // Ajout de l'attribut required
+                placeholder="Nom"
+                onChange={handleInputSignUpChange}
+              />
+            </div>
+            {/* prénom */}
+            <div className="w-full md:w-1/3 px-3">
+                 <label htmlFor="firstname" className="sr-only">
+                Prénom
+              </label>
+              <input
+                type="text"
+                name="firstName"
+                className="w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm"
+                required // Ajout de l'attribut required
+                placeholder="Prénom"
                 onChange={handleInputSignUpChange}
               />
             </div>
@@ -103,6 +106,7 @@ const SignUpForm = () => {
                 type="number"
                 name="age"
                 className="w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm"
+                required // Ajout de l'attribut required
                 placeholder="Âge"
                 onChange={handleInputSignUpChange}
               />
@@ -118,7 +122,8 @@ const SignUpForm = () => {
                 type="email"
                 name="email"
                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Enter email"
+                required // Ajout de l'attribut required
+                placeholder="Email"
                 onChange={handleInputSignUpChange}
               />
             </div>
@@ -133,7 +138,8 @@ const SignUpForm = () => {
                 type="password"
                 name="password"
                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Enter password"
+                required // Ajout de l'attribut required
+                placeholder="Mots passe"
                 onChange={handleInputSignUpChange}
               />
             </div>
@@ -230,7 +236,8 @@ const ConnexionForm = () => {
                 type="email"
                 name="email"
                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Enter email"
+                required // Ajout de l'attribut required
+                placeholder="Email"
                 onChange={handleInputConnexionChange}
               />
             </div>
@@ -245,7 +252,8 @@ const ConnexionForm = () => {
                 type="password"
                 name="password"
                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Enter password"
+                required // Ajout de l'attribut required
+                placeholder="mots passe"
                 onChange={handleInputConnexionChange}
               />
             </div>
