@@ -12,7 +12,6 @@ const SignUpForm = () => {
   });
 
 
-  
   const handleSignUp = async (e) => {
     e.preventDefault();
 
@@ -170,11 +169,15 @@ const ConnexionForm = () => {
 
       if (response.ok) {
         const data = await response.json();
-
         //Sauvegarde du token dans le local storage
         localStorage.setItem("token", data.token);
         console.log("Token reçu du backend:", data.token);
         toast.success("Connexion réussie !");
+           // Réinitialiser les champs du formulaire de connexion
+           setConnexionFormData({
+            email: "",
+            password: "",
+          });
       } else {
         // Gérer les erreurs ici
         console.error("Erreur lors de la requête:", response.status);
@@ -196,6 +199,7 @@ const ConnexionForm = () => {
   const handleDeconnexion = () => {
     localStorage.removeItem("token");
     console.log("Utilisateur déconnecté");
+    toast.success("Déconnexion réussie !");
   };
 
   return (
@@ -253,10 +257,11 @@ const ConnexionForm = () => {
             >
               Connexion
             </button>
-            <button onClick={handleDeconnexion}>Déconnexion</button>
+           
           </div>
         </form>
       </div>
+      <button onClick={handleDeconnexion}>Déconnexion</button>
     </div>
   );
 };
@@ -276,6 +281,7 @@ export default function LogSign() {
           <ConnexionForm />
         </section>
       </div>
+      
     </div>
     </main>
   );
