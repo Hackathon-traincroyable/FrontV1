@@ -261,11 +261,11 @@ export default function LogSign() {
      <div className="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
       <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen">
         {/* SIGN IN */}
-        <section className="relative flex flex-wrap items-center justify-center w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24 ">
+        <section className="relative flex flex-wrap items-center justify-center w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2  ">
           <SignUpForm />
         </section>
         {/* LOGIN */}
-        <section className="relative flex flex-wrap items-center justify-center w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
+        <section className="relative flex flex-wrap items-center justify-center w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2  ">
           <ConnexionForm />
         </section>
       </div>
