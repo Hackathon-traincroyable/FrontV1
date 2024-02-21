@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+//inscription form
 const SignUpForm = () => {
   const [signUpFormData, setSignUpFormData] = useState({
     firstName: "",
@@ -10,7 +11,6 @@ const SignUpForm = () => {
     email: "",
     password: "",
   });
-
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -38,6 +38,7 @@ const SignUpForm = () => {
           email: "",
           password: "",
         });
+        
       } else {
         // Gérer les erreurs ici
         console.error("Erreur lors de la requête:", response.status);
@@ -65,38 +66,48 @@ const SignUpForm = () => {
           className="mx-auto mb-0 max-w-md space-y-4 p-6"
           onSubmit={handleSignUp}
         >
-          {/* FIRSTNAME */}
-          <div>
-            <label htmlFor="firstname" className="sr-only">
-              Prénom
-            </label>
-            <div className="relative">
+          {/* Nom, Prénom, et Âge en ligne */}
+          <div className="flex flex-wrap -mx-3 mb-6">
+            {/* Prénom */}
+            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label htmlFor="firstname" className="sr-only">
+                Prénom
+              </label>
               <input
                 type="text"
                 name="firstName"
-                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Entrer votre prénom"
+                className="w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm"
+                placeholder="prénom"
                 onChange={handleInputSignUpChange}
               />
             </div>
-          </div>
-          {/* LASTNAME */}
-          <div>
-            <label htmlFor="lastname" className="sr-only">
-              Nom
-            </label>
-            <div className="relative">
+            {/* Nom */}
+            <div className="w-full md:w-1/3 px-3">
+              <label htmlFor="lastname" className="sr-only">
+                Nom
+              </label>
               <input
                 type="text"
                 name="lastName"
-                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Entrer votre nom"
+                className="w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm"
+                placeholder="nom"
+                onChange={handleInputSignUpChange}
+              />
+            </div>
+            {/* Âge */}
+            <div className="w-full md:w-1/4 px-3">
+              <label htmlFor="age" className="sr-only">
+                Âge
+              </label>
+              <input
+                type="number"
+                name="age"
+                className="w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm"
+                placeholder="Âge"
                 onChange={handleInputSignUpChange}
               />
             </div>
           </div>
-          {/* AGE */}
-          {/* ... (ajoutez des champs pour les autres informations si nécessaire) */}
           {/* EMAIL */}
           <div>
             <label htmlFor="email" className="sr-only">
@@ -110,9 +121,6 @@ const SignUpForm = () => {
                 placeholder="Enter email"
                 onChange={handleInputSignUpChange}
               />
-              <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-                {/* ... (icône de vérification ou autre) */}
-              </span>
             </div>
           </div>
           {/* PASSWORD */}
@@ -128,9 +136,6 @@ const SignUpForm = () => {
                 placeholder="Enter password"
                 onChange={handleInputSignUpChange}
               />
-              <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-                {/* ... (icône de vérification ou autre) */}
-              </span>
             </div>
           </div>
           {/* SUBMIT */}
@@ -148,6 +153,8 @@ const SignUpForm = () => {
   );
 };
 
+
+//connexion form 
 const ConnexionForm = () => {
   const [connexionFormData, setConnexionFormData] = useState({
     email: "",
@@ -226,9 +233,6 @@ const ConnexionForm = () => {
                 placeholder="Enter email"
                 onChange={handleInputConnexionChange}
               />
-              <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-                {/* ... (icône de vérification ou autre) */}
-              </span>
             </div>
           </div>
           {/* PASSWORD */}
@@ -244,9 +248,6 @@ const ConnexionForm = () => {
                 placeholder="Enter password"
                 onChange={handleInputConnexionChange}
               />
-              <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-                {/* ... (icône de vérification ou autre) */}
-              </span>
             </div>
           </div>
           {/* SUBMIT */}
