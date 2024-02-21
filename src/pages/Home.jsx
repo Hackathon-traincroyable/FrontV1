@@ -52,20 +52,20 @@ export default function Example() {
         <button type="submit" className="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Rechercher les meilleurs prix</button> 
       </form>
     </div>
+    
     {/* Info, occupe 2 fractions */}
     <div className="md:col-span-2 bg-white shadow-lg rounded-lg p-8"> {/* Ajustez pour que cette div occupe 2/3 de l'espace disponible */}
       <h3 className="text-xl font-semibold mb-6 text-center uppercase">meilleur prix</h3>
       {/* Contenu de la deuxième colonne ici */}
-      <div className="flex flex-col space-y-4"> {/* Utilisez flex-col et space-y pour espacer verticalement les éléments */}
-        <div className="text-center">
-          <h4 className="text-xl font-semibold">Départ: Paris - Arrivée: Nice</h4> {/* Augmentez la taille du texte */}
-          <p className="text-lg">Date: 2023-05-20</p> {/* Augmentez la taille du texte */}
-          <p className="text-lg">Prix: 85€</p> {/* Augmentez la taille du texte */}
-        </div>
-      <div className="flex flex-col space-y-4">
-      <button className="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Choisir</button>
-      </div>
-    </div>
+      <div className="flex justify-between items-center shadow-lg p-4"> {/* Ajoutez shadow-lg pour l'ombrage et p-4 pour le padding */}
+  <div>
+    <h4 className="text-xl font-semibold">Départ: Paris - Arrivée: Nice</h4> {/* Taille du texte ajustée */}
+    <p className="text-lg">Date: 2023-05-20</p> {/* Taille du texte ajustée */}
+    <p className="text-lg">Prix: 85€</p> {/* Taille du texte ajustée */}
+  </div>
+  <button className="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Choisir</button>
+</div>
+
   </div>
 </div>
 </div>
