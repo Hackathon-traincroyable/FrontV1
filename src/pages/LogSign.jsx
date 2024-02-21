@@ -184,7 +184,6 @@ const ConnexionForm = () => {
         //Sauvegarde du token dans le local storage
         localStorage.setItem("token", data.token);
         console.log("Token reçu du backend:", data.token);
-        toast.success("Connexion réussie !");
         navigate("/");
         // Réinitialiser les champs du formulaire de connexion
         setConnexionFormData({
