@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 //inscription form
 const SignUpForm = () => {
@@ -43,11 +42,11 @@ const SignUpForm = () => {
       } else {
         // Gérer les erreurs ici
         console.error("Erreur lors de la requête:", response.status);
-        toast.error("Erreur lors de l'inscription.");
+        toast.error("Deja inscrit avec cet email.");
       }
     } catch (error) {
       console.error("Erreur lors de la requête:", error);
-      toast.error("Erreur lors de l'inscription.");
+      toast.error("Deja inscrit avec cet email.");
     }
   };
 
@@ -194,11 +193,11 @@ const ConnexionForm = () => {
       } else {
         // Gérer les erreurs ici
         console.error("Erreur lors de la requête:", response.status);
-        toast.error("Erreur lors de la connexion.");
+        toast.error("Mauvais email ou mot de passe.");
       }
     } catch (error) {
       console.error("Erreur lors de la requête:", error);
-      toast.error("Erreur lors de la connexion.");
+      toast.error("Mauvais email ou mot de passe.");
     }
   };
 
@@ -209,11 +208,7 @@ const ConnexionForm = () => {
     });
   };
 
-  const handleDeconnexion = () => {
-    localStorage.removeItem("token");
-    console.log("Utilisateur déconnecté");
-    toast.success("Déconnexion réussie !");
-  };
+ 
 
   return (
     <div className="w-full ">
@@ -266,11 +261,9 @@ const ConnexionForm = () => {
             >
               Connexion
             </button>
-           
           </div>
         </form>
       </div>
-      <button onClick={handleDeconnexion}>Déconnexion</button>
     </div>
   );
 };
