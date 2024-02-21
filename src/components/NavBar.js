@@ -49,7 +49,9 @@ export default function Example() {
           <div className="flex lg:hidden">
             <button
               type="button"
-              className={`-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 ${location.pathname === "/" ? "text-white" : "text-black"}`}
+              className={`-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 ${
+                location.pathname === "/" ? "text-white" : "text-black"
+              }`}
               onClick={() => setMobileMenuOpen(true)}
             >
               <span className="sr-only">Open main menu</span>
@@ -59,6 +61,7 @@ export default function Example() {
           <div className="hidden lg:flex lg:gap-x-12 uppercase">
             {navigation.map((item) => (
               <Link
+                key={item.name}
                 to={item.href}
                 className={`text-sm font-semibold leading-6 ${
                   location.pathname === "/" ? "text-white" : "text-black"
