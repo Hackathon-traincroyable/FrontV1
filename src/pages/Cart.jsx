@@ -119,12 +119,21 @@ export default function Cart() {
                     </p>
                   </div>
                   <div className="flex justify-end space-x-4 mt-8">
-                    <button className="inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 uppercase">
-                      Payer
-                    </button>
-                    <button className="inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 uppercase">
-                      Se connecter pour payer
-                    </button>
+                    {/* Le bouton Payer n'apparaît que si `isLoggedIn` est `true` */}
+                    {isLoggedIn && (
+                      <button className="inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 uppercase">
+                        Payer
+                      </button>
+                    )}
+                    {/* Le bouton Se connecter pour payer n'apparaît que si `isLoggedIn` est `false` */}
+                    {!isLoggedIn && (
+                      <button
+                        onClick={handlePaymentClick}
+                        className="inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 uppercase"
+                      >
+                        Se connecter pour payer
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

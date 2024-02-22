@@ -193,7 +193,7 @@ export default function Home() {
               <button
                 type="button"
                 onClick={handleSearch}
-                className="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Rechercher les meilleurs prix
               </button>
@@ -204,6 +204,7 @@ export default function Home() {
             <h3 className="text-xl font-semibold mb-6 text-center uppercase">
               meilleur prix
             </h3>
+
             {/* Affichez dynamiquement les résultats de la recherche */}
             {searchResults.map((result, index) => (
               <div
@@ -226,6 +227,45 @@ export default function Home() {
                   Choisir
                 </button>
               </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      {/* section carte voyage */}
+      <div className="bg-white py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              Nos voyages en train les plus populaires
+            </h2>
+            <p className="mt-2 text-lg leading-8 text-gray-600">
+              voyager en train est une expérience unique, découvrez nos voyages
+            </p>
+          </div>
+          <div className="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+            {posts.map((post) => (
+              <article
+                key={post.id}
+                className="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
+              >
+                <img
+                  src={post.imageUrl}
+                  alt=""
+                  className="absolute inset-0 -z-10 h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40" />
+                <div className="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+
+                <h1 className="mt-3 text-lg font-semibold leading-6 text-white">
+                  <a href={post.href}>
+                    <span className="absolute inset-0" />
+                    {post.title}
+                  </a>
+                </h1>
+                <p className="mt-2 text-base leading-7 text-gray-300">
+                  {post.description}
+                </p>
+              </article>
             ))}
           </div>
         </div>
