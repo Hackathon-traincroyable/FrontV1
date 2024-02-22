@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
-import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 export default function Cart() {
-  const [cartItems, setCartItems] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);   
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState([]);
 
+  useEffect(() => {
+    // Vérifiez si un token existe dans le localStorage
+    const token = localStorage.getItem("token");
+    // Si un token existe, considérez l'utilisateur comme connecté
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []); // Le tableau vide signifie que cet effet ne s'exécute qu'au montage du composant
 
   const handlePaymentClick = () => {
     if (!isLoggedIn) {
@@ -18,9 +26,6 @@ export default function Cart() {
       // Par exemple, rediriger vers une page de paiement ou afficher un formulaire de paiement
     }
   };
-
-
-
 
   useEffect(() => {
     // Récupérer les IDs depuis le local storage
@@ -81,22 +86,25 @@ export default function Cart() {
   return (
     <div className="bg-white">
       <main className="isolate">
+        {/* Image section */}
         <div className="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
           <div className="text-center py-8">
             <div className="mt-6">
               <div className="max-w-4xl mx-auto">
+                {/* Info, occupe 2 fractions */}
                 <div className="md:col-span-2 bg-white shadow-lg rounded-lg p-8">
+                  {/* Ajustez pour que cette div occupe 2/3 de l'espace disponible */}
                   <h2 className="text-3xl font-bold text-gray-800">
                     Votre Panier
                   </h2>
                   {cartItems.map((item) => (
                     <div
                       key={item._id}
-                      className="flex flex-col lg:flex-row  justify-between items-center shadow-lg p-4 mb-4"
+                      className="flex flex-col lg:flex-row justify-between items-center shadow-lg p-4"
                     >
                       <div className="flex flex-col sm:flex-row sm:flex-grow sm:items-center space-x-0 sm:space-x-10 space-y-2 sm:space-y-0">
                         <h4 className="text-xl font-semibold flex-shrink-0">
-                          Départ: {item.departure} - Arrivée: {item.arrival}
+                          Départ: {item.depart} - Arrivée: {item.arrivee}
                         </h4>
                         <p className="text-lg flex-shrink-0">
                           Date: {moment(item.date).format("YYYY-MM-DD")}
@@ -106,8 +114,8 @@ export default function Cart() {
                         </p>
                       </div>
                       <button
-                        className="mt-5 sm:mt-4 sm:ml-4 inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                         onClick={() => handleRemoveFromCart(item._id)}
+                        className="mt-5 sm:mt-4 sm:ml-4 inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -123,13 +131,11 @@ export default function Cart() {
                             d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                           />
                         </svg>
-                        Supprimer
                       </button>
                     </div>
                   ))}
                   <div className="flex justify-between items-center mt-8 p-4 bg-gray-100 rounded-lg">
                     <h3 className="text-xl font-semibold">Total Prix:</h3>
-                    {/* Ajoutez ici la logique pour calculer le total du panier */}
                     <p className="text-xl">
                       {" "}
                       {cartItems.reduce((total, item) => total + item.price, 0)}
