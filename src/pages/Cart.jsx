@@ -1,8 +1,26 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
   const [cartItems, setCartItems] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);   
+  const navigate = useNavigate();
+
+
+  const handlePaymentClick = () => {
+    if (!isLoggedIn) {
+      // Si l'utilisateur n'est pas connecté, définissez la page de redirection et redirigez vers la page de connexion
+      localStorage.setItem("loginRedirect", "/cart"); // Définir la page de redirection vers le panier
+      navigate("/logSign?mode=login"); // Rediriger vers la page de connexion
+    } else {
+      // Logique de paiement ici si l'utilisateur est connecté
+      // Par exemple, rediriger vers une page de paiement ou afficher un formulaire de paiement
+    }
+  };
+
+
+
 
   useEffect(() => {
     // Récupérer les IDs depuis le local storage

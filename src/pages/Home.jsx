@@ -1,6 +1,35 @@
 import moment from "moment";
 import React, { useState } from "react";
 
+const posts = [
+  {
+    id: 1,
+    title: "Paris",
+    description:
+      "Paris est la capitale de la France. Elle est située au cœur d'une vaste plaine fertile au climat tempéré, le Bassin parisien, sur une boucle de la Seine, entre les confluents de celle-ci avec la Marne et l'Oise.",
+    imageUrl:
+      "https://res.klook.com/image/upload/Mobile/City/swox6wjsl5ndvkv5jvum.jpg",
+  },
+
+  {
+    id: 2,
+    title: "Lyon",
+    description:
+      "Lyon est une ville du centre-est de la France, située dans la région Auvergne-Rhône-Alpes, au confluent du Rhône et de la Saône. Son centre-ville médiéval, Renaissance et moderne est inscrit au patrimoine mondial de l'UNESCO.",
+    imageUrl:
+      "https://mediaim.expedia.com/destination/1/0877ac2d5b8f5ee1b17bae44c3174d48.jpg",
+  },
+
+  {
+    id: 3,
+    title: "Bruxelles",
+    description:
+      "Bruxelles est la capitale de la Belgique et de la Région de Bruxelles-Capitale. Elle abrite les institutions de l'Union européenne, dont la Commission européenne, le Parlement européen et le Conseil de l'Union européenne.",
+    imageUrl:
+      "https://oudormirtop.com/wp-content/uploads/2020/08/oudormirabruxelles-785x524.jpg",
+  },
+];
+
 export default function Home() {
   //Variable d'état qui contiendra les valeurs saisis par l'utilisateur dans l'input
   const [formData, setFormData] = useState({
