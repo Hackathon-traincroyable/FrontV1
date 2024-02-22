@@ -1,8 +1,8 @@
 export default function Example() {
   return (
-<main className="isolate">
-{/* Hero section */}
-<div className="relative isolate -z-10">
+    <main className="isolate">
+      {/* Hero section */}
+      <div className="relative isolate -z-10">
         <video
           className="absolute inset-0 w-full h-full object-cover -z-10 "
           autoPlay
