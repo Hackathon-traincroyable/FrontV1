@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Example() {
+export default function Cart() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
@@ -15,9 +15,7 @@ export default function Example() {
   }, []); // Le tableau vide signifie que cet effet ne s'exécute qu'au montage du composant
 
   const handlePaymentClick = () => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
+    if (!isLoggedIn) {
       // Si l'utilisateur n'est pas connecté, définissez la page de redirection et redirigez vers la page de connexion
       localStorage.setItem("loginRedirect", "/cart"); // Définir la page de redirection vers le panier
       navigate("/logSign?mode=login"); // Rediriger vers la page de connexion
@@ -25,12 +23,6 @@ export default function Example() {
       // Logique de paiement ici si l'utilisateur est connecté
       // Par exemple, rediriger vers une page de paiement ou afficher un formulaire de paiement
     }
-  };
-
-  const handleLoginRedirect = () => {
-    // Enregistrez l'action de clic dans le localStorage
-    localStorage.setItem("lastAction", "loginRedirect");
-    navigate("/logSign?mode=login"); // Ajoutez un paramètre d'URL pour spécifier le mode
   };
 
   return (
