@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 //inscription form
 const SignUpForm = () => {
@@ -159,12 +160,11 @@ const SignUpForm = () => {
 
 //connexion form
 const ConnexionForm = () => {
+  const navigate = useNavigate();
   const [connexionFormData, setConnexionFormData] = useState({
     email: "",
     password: "",
   });
-
-  const navigate = useNavigate();
 
   const handleConnexion = async (e) => {
     e.preventDefault();
@@ -190,8 +190,18 @@ const ConnexionForm = () => {
           email: "",
           password: "",
         });
+
+        // Vérifier si une redirection spécifique est demandée
+        const redirectPath = localStorage.getItem("loginRedirect");
+        if (redirectPath) {
+          navigate(redirectPath); // Rediriger vers le chemin spécifié
+          localStorage.removeItem("loginRedirect"); // Nettoyer la redirection du localStorage
+        } else {
+          navigate("/"); // Rediriger vers la page d'accueil par défaut
+        }
       } else {
         // Gérer les erreurs ici
+
         console.error("Erreur lors de la requête:", response.status);
         toast.error("Mauvais email ou mot de passe.");
       }
@@ -206,6 +216,18 @@ const ConnexionForm = () => {
       ...connexionFormData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handlePaymentClick = () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      // Si l'utilisateur n'est pas connecté, définissez la page de redirection et redirigez vers la page de connexion
+      localStorage.setItem("loginRedirect", "/cart"); // Définir la page de redirection vers le panier
+      navigate("/logSign?mode=login"); // Rediriger vers la page de connexion
+    } else {
+      // Logique de paiement ici si l'utilisateur est connecté
+    }
   };
 
   return (
@@ -267,6 +289,10 @@ const ConnexionForm = () => {
 };
 
 export default function LogSign() {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const mode = searchParams.get("mode"); // 'login' ou null
+
   return (
     <main className="isolate ">
       <ToastContainer
@@ -281,17 +307,23 @@ export default function LogSign() {
         pauseOnHover
         style={{ top: "100px" }}
       />
-      <div className="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
-        <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen">
-          {/* SIGN IN */}
-          <section className="relative flex flex-wrap items-center justify-center w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2  ">
-            <SignUpForm />
-          </section>
-          {/* LOGIN */}
-          <section className="relative flex flex-wrap items-center justify-center w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2  ">
+      <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen">
+        {mode === "login" ? (
+          // Affiche uniquement le formulaire de connexion si mode=login
+          <section className="w-full px-4 py-12 sm:px-6 sm:py-16">
             <ConnexionForm />
           </section>
-        </div>
+        ) : (
+          // Sinon, affichez les deux formulaires comme avant
+          <>
+            <section className="relative w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2">
+              <SignUpForm />
+            </section>
+            <section className="relative w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2">
+              <ConnexionForm />
+            </section>
+          </>
+        )}
       </div>
     </main>
   );

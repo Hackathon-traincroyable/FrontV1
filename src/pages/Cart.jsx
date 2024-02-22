@@ -14,8 +14,23 @@ export default function Example() {
     }
   }, []); // Le tableau vide signifie que cet effet ne s'exécute qu'au montage du composant
 
+  const handlePaymentClick = () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      // Si l'utilisateur n'est pas connecté, définissez la page de redirection et redirigez vers la page de connexion
+      localStorage.setItem("loginRedirect", "/cart"); // Définir la page de redirection vers le panier
+      navigate("/logSign?mode=login"); // Rediriger vers la page de connexion
+    } else {
+      // Logique de paiement ici si l'utilisateur est connecté
+      // Par exemple, rediriger vers une page de paiement ou afficher un formulaire de paiement
+    }
+  };
+
   const handleLoginRedirect = () => {
-    navigate("/logSign"); // Utilisez navigate au lieu de history.push
+    // Enregistrez l'action de clic dans le localStorage
+    localStorage.setItem("lastAction", "loginRedirect");
+    navigate("/logSign?mode=login"); // Ajoutez un paramètre d'URL pour spécifier le mode
   };
 
   return (
@@ -74,7 +89,7 @@ export default function Example() {
                     {/* Le bouton Se connecter pour payer n'apparaît que si `isLoggedIn` est `false` */}
                     {!isLoggedIn && (
                       <button
-                        onClick={handleLoginRedirect}
+                        onClick={handlePaymentClick}
                         className="inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 uppercase"
                       >
                         Se connecter pour payer
