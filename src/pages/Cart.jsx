@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Cart() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -74,12 +75,28 @@ export default function Cart() {
         prevItems.filter((item) => item._id !== tripId)
       );
 
+      // Affichez un toast après la suppression réussie
+      toast.success(`supprimé du panier.`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
       console.log(`Trajet avec l'ID ${tripId} supprimé du panier.`);
     } catch (error) {
-      console.error(
-        "Erreur lors de la suppression du trajet du panier.",
-        error
-      );
+      toast.error("Erreur lors de la suppression du trajet du panier.", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -87,6 +104,13 @@ export default function Cart() {
     <div className="bg-white">
       <main className="isolate">
         {/* Image section */}
+
+        <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          style={{ top: "100px" }}
+        />
+
         <div className="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
           <div className="text-center py-8">
             <div className="mt-6">

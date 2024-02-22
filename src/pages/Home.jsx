@@ -145,7 +145,7 @@ export default function Home() {
         setSelectedTrips([...selectedTrips, tripId]);
 
         // Affichez un toast de succès
-        toast.success("Bien ajouté dans le panier !");
+        toast.success("Ajouté dans le panier !");
       } else {
         console.error("Erreur lors de l'ajout du trajet au panier.");
         // Affichez un toast d'erreur
