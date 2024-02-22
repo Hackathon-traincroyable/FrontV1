@@ -1,17 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Example() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  
+  const navigate = useNavigate();
+
   useEffect(() => {
     // Vérifiez si un token existe dans le localStorage
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     // Si un token existe, considérez l'utilisateur comme connecté
     if (token) {
       setIsLoggedIn(true);
     }
   }, []); // Le tableau vide signifie que cet effet ne s'exécute qu'au montage du composant
 
+  const handleLoginRedirect = () => {
+    navigate("/logSign"); // Utilisez navigate au lieu de history.push
+  };
 
   return (
     <div className="bg-white">
@@ -66,9 +71,15 @@ export default function Example() {
                         Payer
                       </button>
                     )}
-                    <button className="inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 uppercase">
-                      Se connecter pour payer
-                    </button>
+                    {/* Le bouton Se connecter pour payer n'apparaît que si `isLoggedIn` est `false` */}
+                    {!isLoggedIn && (
+                      <button
+                        onClick={handleLoginRedirect}
+                        className="inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 uppercase"
+                      >
+                        Se connecter pour payer
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

@@ -166,6 +166,7 @@ export default function Home() {
             <h3 className="text-xl font-semibold mb-6 text-center uppercase">
               meilleur prix
             </h3>
+            
             {/* Affichez dynamiquement les résultats de la recherche */}
             {searchResults.map((result, index) => (
               <div
