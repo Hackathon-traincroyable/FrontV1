@@ -286,13 +286,6 @@ export default function LogSign() {
       <ToastContainer
         position="top-right"
         autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
         style={{ top: "100px" }}
       />
       <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen">
