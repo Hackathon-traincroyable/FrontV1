@@ -161,7 +161,7 @@ export default function Home() {
               </button>
             </form>
           </div>
-          {/* Info, occupe 2 fractions */}
+          {/* Info, occupe 2 fracti ons */}
           <div className="md:col-span-2 bg-white shadow-lg rounded-lg p-8">
             <h3 className="text-xl font-semibold mb-6 text-center uppercase">
               meilleur prix
