@@ -3,14 +3,16 @@ import React, { useState } from "react";
 
 export default function Home() {
   //Variable d'état qui contiendra les valeurs saisis par l'utilisateur dans l'input
-
   const [formData, setFormData] = useState({
     depart: "",
     arrive: "",
     date: "",
   });
 
-  const [searchResults, setSearchResults] = useState([]);
+  //USE STATES
+  const [searchResults, setSearchResults] = useState([]); //Resultat de la recherche
+
+  const [selectedTrips, setSelectedTrips] = useState([]); //Trip ajoutés dans le panier
 
   // stock dans la variale d'état les valeurs des inputs à leurs changements
   const handleInputChange = (event) => {
@@ -50,6 +52,42 @@ export default function Home() {
       // Faites quelque chose avec les résultats de la recherche (par exemple, mettre à jour l'état pour afficher les résultats)
     } else {
       console.error("Erreur lors de la recherche de trajets.");
+    }
+  };
+
+  //Function add to cart
+  const handleChoose = async (tripId) => {
+    try {
+      const response = await fetch("http://localhost:3000/add-to-cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          tripId,
+        }),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log(result.message);
+
+        // On récup le tableau de base dans le localStorage
+        const currentCart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // Ajoutez le nouvel ID à ce tableau
+        const updatedCart = [...currentCart, tripId];
+
+        // Save dans le localStorage
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+        //On met à jour le usestate selectedTrips avec les id ajoutés
+        setSelectedTrips([...selectedTrips, tripId]);
+      } else {
+        console.error("Erreur lors de l'ajout du trajet au panier.");
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -181,7 +219,10 @@ export default function Home() {
                   </p>
                   <p className="text-lg">Prix: {result.price}€</p>
                 </div>
-                <button className="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <button
+                  onClick={() => handleChoose(result._id)}
+                  className="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
                   Choisir
                 </button>
               </div>

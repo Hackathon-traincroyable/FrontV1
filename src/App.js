@@ -1,4 +1,4 @@
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import "./style/globale.css";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";

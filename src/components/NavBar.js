@@ -15,7 +15,7 @@ const handleDeconnexion = () => {
   window.location.reload();
 };
 
-export default function Example() {
+export default function NavBar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
   const estConnecte = localStorage.getItem("token");
@@ -69,6 +69,7 @@ export default function Example() {
           <div className="hidden lg:flex lg:gap-x-12 uppercase">
             {navigation.map((item) => (
               <Link
+                key={item.name}
                 to={item.href}
                 className={`text-sm font-semibold leading-6 ${
                   location.pathname === "/" ? "text-white" : "text-black"
