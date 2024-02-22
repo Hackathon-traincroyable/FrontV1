@@ -50,7 +50,7 @@ export default function Example() {
                       class="w-full border-none focus:border-transparent focus:ring-transparent sm:text-sm"
                     />
 
-                    <button class="mt-1 w-full bg-indigo-600 px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-indigo-700 sm:mt-0 sm:w-auto sm:shrink-0">
+                    <button class="mt-1 w-full bg-blue-600 px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-blue-700 sm:mt-0 sm:w-auto sm:shrink-0">
                       S'inscrire
                     </button>
                   </div>
