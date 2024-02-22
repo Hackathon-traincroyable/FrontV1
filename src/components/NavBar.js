@@ -12,6 +12,7 @@ const navigation = [
 const handleDeconnexion = () => {
   localStorage.removeItem("token");
   console.log("Utilisateur déconnecté");
+  alert("Vous êtes maintenant déconnecté.");
   window.location.reload();
 };
 
