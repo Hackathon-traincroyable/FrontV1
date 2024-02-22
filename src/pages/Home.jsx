@@ -1,58 +1,4 @@
-import moment from "moment";
-import React, { useState } from "react";
-
-export default function Home() {
-  //Variable d'état qui contiendra les valeurs saisis par l'utilisateur dans l'input
-
-  const [formData, setFormData] = useState({
-    depart: "",
-    arrive: "",
-    date: "",
-  });
-
-  const [searchResults, setSearchResults] = useState([]);
-
-  // stock dans la variale d'état les valeurs des inputs à leurs changements
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSearch = async () => {
-    // Formatage date avec moment, on donne un intervalle pour afficher tous les trajets du jour
-    const startDate = moment(formData.date, "YYYY-MM-DD")
-      .startOf("day")
-      .format("YYYY-MM-DDTHH:mm:ss.SSSZ");
-    const endDate = moment(formData.date, "YYYY-MM-DD")
-      .endOf("day")
-      .format("YYYY-MM-DDTHH:mm:ss.SSSZ");
-
-    // Fetch vers le back pour rechercher les trajets avec les valeurs saisies
-    const response = await fetch("http://localhost:3000/search", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        departure: formData.depart,
-        arrival: formData.arrive,
-        date: { $gte: startDate, $lte: endDate },
-      }),
-    });
-
-    if (response.ok) {
-      const trips = await response.json();
-      setSearchResults(trips);
-      console.log("Trips:", trips);
-      // Faites quelque chose avec les résultats de la recherche (par exemple, mettre à jour l'état pour afficher les résultats)
-    } else {
-      console.error("Erreur lors de la recherche de trajets.");
-    }
-  };
-
+export default function Example() {
   return (
     <main className="isolate">
       {/* Hero section */}
@@ -65,6 +11,7 @@ export default function Home() {
         >
           <source src="assets/video.mp4" type="video/mp4" />
         </video>
+
         <div className="relative isolate -z-10">
           <div className="overflow-hidden">
             <div className="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
@@ -109,8 +56,6 @@ export default function Home() {
                   type="text"
                   id="depart"
                   name="depart"
-                  value={formData.depart}
-                  onChange={handleInputChange}
                   className="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-base"
                   placeholder="Ville de départ"
                 />{" "}
@@ -127,8 +72,6 @@ export default function Home() {
                   type="text"
                   id="arrive"
                   name="arrive"
-                  value={formData.arrive}
-                  onChange={handleInputChange}
                   className="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-base"
                   placeholder="Ville d'arrivée"
                 />
@@ -144,47 +87,42 @@ export default function Home() {
                   type="date"
                   id="date"
                   name="date"
-                  value={moment(formData.date, "YYYY-MM-DD").format(
-                    "YYYY-MM-DD"
-                  )} /* On passe le même format de date que mangoDB */
-                  onChange={handleInputChange}
                   className="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-base"
                 />
               </div>
               <button
-                type="button"
-                onClick={handleSearch}
+                type="submit"
                 className="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Rechercher les meilleurs prix
               </button>
             </form>
           </div>
-          {/* Info, occupe 2 fracti ons */}
+          {/* Info, occupe 2 fractions */}
           <div className="md:col-span-2 bg-white shadow-lg rounded-lg p-8">
+            {" "}
+            {/* Ajustez pour que cette div occupe 2/3 de l'espace disponible */}
             <h3 className="text-xl font-semibold mb-6 text-center uppercase">
               meilleur prix
             </h3>
-            {/* Affichez dynamiquement les résultats de la recherche */}
-            {searchResults.map((result, index) => (
-              <div
-                key={index}
-                className="flex justify-between items-center shadow-lg p-4 mb-4"
-              >
-                <div>
-                  <h4 className="text-xl font-semibold">
-                    Départ: {result.departure} - Arrivée: {result.arrival}
-                  </h4>
-                  <p className="text-lg">
-                    Date: {moment(result.date).format("YYYY-MM-DD")}
-                  </p>
-                  <p className="text-lg">Prix: {result.price}€</p>
-                </div>
-                <button className="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                  Choisir
-                </button>
+            {/* Contenu de la deuxième colonne ici */}
+            <div className="flex justify-between items-center shadow-lg p-4">
+              {" "}
+              {/* Ajoutez shadow-lg pour l'ombrage et p-4 pour le padding */}
+              <div>
+                <h4 className="text-xl font-semibold">
+                  Départ: Paris - Arrivée: Nice
+                </h4>{" "}
+                {/* Taille du texte ajustée */}
+                <p className="text-lg">Date: 2023-05-20</p>{" "}
+                {/* Taille du texte ajustée */}
+                <p className="text-lg">Prix: 85€</p>{" "}
+                {/* Taille du texte ajustée */}
               </div>
-            ))}
+              <button className="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Choisir
+              </button>
+            </div>
           </div>
         </div>
       </div>
