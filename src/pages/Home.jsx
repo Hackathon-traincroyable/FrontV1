@@ -1,5 +1,6 @@
 import moment from "moment";
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 const posts = [
   {
@@ -112,16 +113,28 @@ export default function Home() {
 
         //On met à jour le usestate selectedTrips avec les id ajoutés
         setSelectedTrips([...selectedTrips, tripId]);
+
+        // Affichez un toast de succès
+        toast.success("Bien ajouté dans le panier !");
       } else {
         console.error("Erreur lors de l'ajout du trajet au panier.");
+        // Affichez un toast d'erreur
+        toast.error("Erreur lors de l'ajout au panier.");
       }
     } catch (error) {
       console.error(error);
+      // Affichez un toast d'erreur
+      toast.error("Erreur lors de l'ajout au panier.");
     }
   };
 
   return (
     <main className="isolate">
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        style={{ top: "100px" }}
+      />
       {/* Hero section */}
       <div className="relative isolate -z-10">
         <video
