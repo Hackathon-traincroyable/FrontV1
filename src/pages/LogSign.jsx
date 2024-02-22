@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
 
-
+//inscription form
 const SignUpForm = () => {
   const [signUpFormData, setSignUpFormData] = useState({
     firstName: "",
@@ -10,8 +11,6 @@ const SignUpForm = () => {
     password: "",
   });
 
-
-  
   const handleSignUp = async (e) => {
     e.preventDefault();
 
@@ -29,6 +28,8 @@ const SignUpForm = () => {
         const data = await response.json();
         // Faire quelque chose avec la réponse du backend, par exemple, enregistrer le token
         console.log("Token reçu du backend:", data.token);
+        toast.success("Vous êtes bien inscrit !")
+
         // Reset les inputs
         setSignUpFormData({
           firstName: "",
@@ -37,12 +38,15 @@ const SignUpForm = () => {
           email: "",
           password: "",
         });
+        
       } else {
         // Gérer les erreurs ici
         console.error("Erreur lors de la requête:", response.status);
+        toast.error("Deja inscrit avec cet email.");
       }
     } catch (error) {
       console.error("Erreur lors de la requête:", error);
+      toast.error("Deja inscrit avec cet email.");
     }
   };
 
@@ -62,38 +66,51 @@ const SignUpForm = () => {
           className="mx-auto mb-0 max-w-md space-y-4 p-6"
           onSubmit={handleSignUp}
         >
-          {/* FIRSTNAME */}
-          <div>
-            <label htmlFor="firstname" className="sr-only">
-              Prénom
-            </label>
-            <div className="relative">
-              <input
-                type="text"
-                name="firstName"
-                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Entrer votre prénom"
-                onChange={handleInputSignUpChange}
-              />
-            </div>
-          </div>
-          {/* LASTNAME */}
-          <div>
+          {/* Nom, Prénom, et Âge en ligne */}
+          <div className="flex flex-wrap -mx-3 mb-6">
+            {/* nom */}
+            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
             <label htmlFor="lastname" className="sr-only">
-              Nom
-            </label>
-            <div className="relative">
+                Nom
+              </label>
               <input
                 type="text"
                 name="lastName"
-                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Entrer votre nom"
+                className="w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm"
+                required // Ajout de l'attribut required
+                placeholder="Nom"
+                onChange={handleInputSignUpChange}
+              />
+            </div>
+            {/* prénom */}
+            <div className="w-full md:w-1/3 px-3">
+                 <label htmlFor="firstname" className="sr-only">
+                Prénom
+              </label>
+              <input
+                type="text"
+                name="firstName"
+                className="w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm"
+                required // Ajout de l'attribut required
+                placeholder="Prénom"
+                onChange={handleInputSignUpChange}
+              />
+            </div>
+            {/* Âge */}
+            <div className="w-full md:w-1/4 px-3">
+              <label htmlFor="age" className="sr-only">
+                Âge
+              </label>
+              <input
+                type="number"
+                name="age"
+                className="w-full rounded-lg border-gray-200 p-4 text-sm shadow-sm"
+                required // Ajout de l'attribut required
+                placeholder="Âge"
                 onChange={handleInputSignUpChange}
               />
             </div>
           </div>
-          {/* AGE */}
-          {/* ... (ajoutez des champs pour les autres informations si nécessaire) */}
           {/* EMAIL */}
           <div>
             <label htmlFor="email" className="sr-only">
@@ -104,12 +121,10 @@ const SignUpForm = () => {
                 type="email"
                 name="email"
                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Enter email"
+                required // Ajout de l'attribut required
+                placeholder="Email"
                 onChange={handleInputSignUpChange}
               />
-              <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-                {/* ... (icône de vérification ou autre) */}
-              </span>
             </div>
           </div>
           {/* PASSWORD */}
@@ -122,19 +137,17 @@ const SignUpForm = () => {
                 type="password"
                 name="password"
                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Enter password"
+                required // Ajout de l'attribut required
+                placeholder="Mots passe"
                 onChange={handleInputSignUpChange}
               />
-              <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-                {/* ... (icône de vérification ou autre) */}
-              </span>
             </div>
           </div>
           {/* SUBMIT */}
-          <div className="">
-            <button
+          <div className="flex justify-center">
+          <button
               type="submit"
-              className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white uppercase"
+              className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white uppercase hover:bg-blue-700 transition duration-300"
             >
               s'inscrire
             </button>
@@ -145,6 +158,8 @@ const SignUpForm = () => {
   );
 };
 
+
+//connexion form 
 const ConnexionForm = () => {
   const [connexionFormData, setConnexionFormData] = useState({
     email: "",
@@ -166,17 +181,23 @@ const ConnexionForm = () => {
 
       if (response.ok) {
         const data = await response.json();
-
         //Sauvegarde du token dans le local storage
         localStorage.setItem("token", data.token);
-
         console.log("Token reçu du backend:", data.token);
+        toast.success("Connexion réussie !");
+           // Réinitialiser les champs du formulaire de connexion
+           setConnexionFormData({
+            email: "",
+            password: "",
+          });
       } else {
         // Gérer les erreurs ici
         console.error("Erreur lors de la requête:", response.status);
+        toast.error("Mauvais email ou mot de passe.");
       }
     } catch (error) {
       console.error("Erreur lors de la requête:", error);
+      toast.error("Mauvais email ou mot de passe.");
     }
   };
 
@@ -187,10 +208,7 @@ const ConnexionForm = () => {
     });
   };
 
-  const handleDeconnexion = () => {
-    localStorage.removeItem("token");
-    console.log("Utilisateur déconnecté");
-  };
+ 
 
   return (
     <div className="w-full ">
@@ -213,12 +231,10 @@ const ConnexionForm = () => {
                 type="email"
                 name="email"
                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Enter email"
+                required // Ajout de l'attribut required
+                placeholder="Email"
                 onChange={handleInputConnexionChange}
               />
-              <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-                {/* ... (icône de vérification ou autre) */}
-              </span>
             </div>
           </div>
           {/* PASSWORD */}
@@ -231,23 +247,20 @@ const ConnexionForm = () => {
                 type="password"
                 name="password"
                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Enter password"
+                required // Ajout de l'attribut required
+                placeholder="mots passe"
                 onChange={handleInputConnexionChange}
               />
-              <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-                {/* ... (icône de vérification ou autre) */}
-              </span>
             </div>
           </div>
           {/* SUBMIT */}
-          <div className="">
+          <div className="flex justify-center">
             <button
               type="submit"
-              className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
+              className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white uppercase hover:bg-blue-700 transition duration-300"
             >
               Connexion
             </button>
-            <button onClick={handleDeconnexion}>Déconnexion</button>
           </div>
         </form>
       </div>
@@ -257,7 +270,8 @@ const ConnexionForm = () => {
 
 export default function LogSign() {
   return (
-    <main className="isolate">
+    <main className="isolate ">
+     <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover  style={{ top: '100px' }}  />
      <div className="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
       <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen">
         {/* SIGN IN */}
@@ -269,6 +283,7 @@ export default function LogSign() {
           <ConnexionForm />
         </section>
       </div>
+      
     </div>
     </main>
   );

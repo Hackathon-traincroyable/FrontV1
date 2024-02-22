@@ -2,12 +2,21 @@ import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
+import { toast } from 'react-toastify';
+
 
 const navigation = [
   { name: "Accueil", href: "/" },
   { name: "Panier", href: "/cart" },
   { name: "Réservation", href: "/reservation" },
 ];
+
+
+const handleDeconnexion = () => {
+  localStorage.removeItem("token");
+  console.log("Utilisateur déconnecté");
+  toast.success("Déconnexion réussie !");
+};
 
 export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -73,15 +82,18 @@ export default function Example() {
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             {/* Pastille de profil */}
-            <div className="mr-4 flex items-center justify-center h-8 w-8 rounded-full bg-indigo-600 text-white">
+            <div className="mr-4 flex items-center justify-center h-8 w-8 rounded-full bg-blue-500 text-white">
               <span>JP</span>{" "}
               {/* Les initiales de l'utilisateur, par exemple */}
             </div>
             <Link to="/logsign">
-              <button className="ml-6 inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+              <button className="ml-6 inline-flex items-center rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-sm  hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                 Connexion
               </button>
             </Link>
+            <button onClick={handleDeconnexion} className="ml-6 inline-flex items-center rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-sm  hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+              Déconnexion
+              </button>
           </div>
         </nav>
 

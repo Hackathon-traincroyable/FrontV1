@@ -1,18 +1,4 @@
-import { useState } from "react";
-import { Dialog } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Link, useLocation } from "react-router-dom";
-
-const navigation = [
-  { name: "Accueil", href: "/" },
-  { name: "Panier", href: "/cart" },
-  { name: "Réservation", href: "/reservation" },
-];
-
 export default function Example() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const location = useLocation();
-
   return (
     <div className="">
       {/* Footer */}
