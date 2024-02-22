@@ -10,6 +10,35 @@ export default function Home() {
     date: "",
   });
 
+  const posts = [
+    {
+      id: 1,
+      title: "Paris",
+      description:
+        "Paris est la capitale de la France. Elle est située au cœur d'une vaste plaine fertile au climat tempéré, le Bassin parisien, sur une boucle de la Seine, entre les confluents de celle-ci avec la Marne et l'Oise.",
+      imageUrl:
+        "https://res.klook.com/image/upload/Mobile/City/swox6wjsl5ndvkv5jvum.jpg",
+    },
+
+    {
+      id: 2,
+      title: "Lyon",
+      description:
+        "Lyon est une ville du centre-est de la France, située dans la région Auvergne-Rhône-Alpes, au confluent du Rhône et de la Saône. Son centre-ville médiéval, Renaissance et moderne est inscrit au patrimoine mondial de l'UNESCO.",
+      imageUrl:
+        "https://mediaim.expedia.com/destination/1/0877ac2d5b8f5ee1b17bae44c3174d48.jpg",
+    },
+
+    {
+      id: 3,
+      title: "Bruxelles",
+      description:
+        "Bruxelles est la capitale de la Belgique et de la Région de Bruxelles-Capitale. Elle abrite les institutions de l'Union européenne, dont la Commission européenne, le Parlement européen et le Conseil de l'Union européenne.",
+      imageUrl:
+        "https://oudormirtop.com/wp-content/uploads/2020/08/oudormirabruxelles-785x524.jpg",
+    },
+  ];
+
   const [searchResults, setSearchResults] = useState([]);
 
   // stock dans la variale d'état les valeurs des inputs à leurs changements
@@ -166,7 +195,7 @@ export default function Home() {
             <h3 className="text-xl font-semibold mb-6 text-center uppercase">
               meilleur prix
             </h3>
-            
+
             {/* Affichez dynamiquement les résultats de la recherche */}
             {searchResults.map((result, index) => (
               <div
@@ -186,6 +215,45 @@ export default function Home() {
                   Choisir
                 </button>
               </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      {/* section carte voyage */}
+      <div className="bg-white py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              Nos voyages en train les plus populaires
+            </h2>
+            <p className="mt-2 text-lg leading-8 text-gray-600">
+              voyager en train est une expérience unique, découvrez nos voyages
+            </p>
+          </div>
+          <div className="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+            {posts.map((post) => (
+              <article
+                key={post.id}
+                className="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
+              >
+                <img
+                  src={post.imageUrl}
+                  alt=""
+                  className="absolute inset-0 -z-10 h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40" />
+                <div className="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+
+                <h1 className="mt-3 text-lg font-semibold leading-6 text-white">
+                  <a href={post.href}>
+                    <span className="absolute inset-0" />
+                    {post.title}
+                  </a>
+                </h1>
+                <p className="mt-2 text-base leading-7 text-gray-300">
+                  {post.description}
+                </p>
+              </article>
             ))}
           </div>
         </div>
