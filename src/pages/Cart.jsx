@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
 export default function Cart() {
   const [cartItems, setCartItems] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Récupérer les IDs depuis le local storage
@@ -57,6 +60,52 @@ export default function Cart() {
         "Erreur lors de la suppression du trajet du panier.",
         error
       );
+    }
+  };
+
+  //Switch button payement
+  const handlePaymentClick = () => {
+    if (!isLoggedIn) {
+      // Si l'utilisateur n'est pas connecté, définissez la page de redirection et redirigez vers la page de connexion
+      localStorage.setItem("loginRedirect", "/cart"); // Définir la page de redirection vers le panier
+      navigate("/logSign?mode=login"); // Rediriger vers la page de connexion
+    } else {
+      // Logique de paiement ici si l'utilisateur est connecté
+      // Par exemple, rediriger vers une page de paiement ou afficher un formulaire de paiement
+    }
+  };
+
+  //Fetch ma route qui modifie isPaid=false en true, depuis le tableaux d'id du localStorage
+  const handlePayCart = async () => {
+    try {
+      // récupération des id dans le local storage
+      const storedIds = JSON.parse(localStorage.getItem("cart")) || [];
+
+      // Fetch vers ma route backend pay-cart
+      const response = await fetch("http://localhost:3000/pay-cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ tripIds: storedIds }),
+      });
+
+      if (response.ok) {
+        // Dans le localStorage on modifie en true
+        const updatedCartItems = cartItems.map((item) => ({
+          ...item,
+          isPaid: true,
+        }));
+        //On met a jour la variable d'état avec les nouuvelles infos
+        setCartItems(updatedCartItems);
+
+        // Delete panier après paiement
+        localStorage.removeItem("cart");
+      } else {
+        console.error("Erreur lors du paiement du panier.");
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -121,7 +170,10 @@ export default function Cart() {
                   <div className="flex justify-end space-x-4 mt-8">
                     {/* Le bouton Payer n'apparaît que si `isLoggedIn` est `true` */}
                     {isLoggedIn && (
-                      <button className="inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 uppercase">
+                      <button
+                        onClick={handlePayCart}
+                        className="inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 uppercase"
+                      >
                         Payer
                       </button>
                     )}
