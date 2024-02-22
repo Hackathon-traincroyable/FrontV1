@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 //inscription form
 const SignUpForm = () => {
@@ -28,7 +29,7 @@ const SignUpForm = () => {
         const data = await response.json();
         // Faire quelque chose avec la réponse du backend, par exemple, enregistrer le token
         console.log("Token reçu du backend:", data.token);
-        toast.success("Vous êtes bien inscrit !")
+        toast.success("Vous êtes bien inscrit !");
 
         // Reset les inputs
         setSignUpFormData({
@@ -38,7 +39,6 @@ const SignUpForm = () => {
           email: "",
           password: "",
         });
-        
       } else {
         // Gérer les erreurs ici
         console.error("Erreur lors de la requête:", response.status);
@@ -50,7 +50,6 @@ const SignUpForm = () => {
     }
   };
 
-  
   const handleInputSignUpChange = (e) => {
     setSignUpFormData({ ...signUpFormData, [e.target.name]: e.target.value });
   };
@@ -70,7 +69,7 @@ const SignUpForm = () => {
           <div className="flex flex-wrap -mx-3 mb-6">
             {/* nom */}
             <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <label htmlFor="lastname" className="sr-only">
+              <label htmlFor="lastname" className="sr-only">
                 Nom
               </label>
               <input
@@ -84,7 +83,7 @@ const SignUpForm = () => {
             </div>
             {/* prénom */}
             <div className="w-full md:w-1/3 px-3">
-                 <label htmlFor="firstname" className="sr-only">
+              <label htmlFor="firstname" className="sr-only">
                 Prénom
               </label>
               <input
@@ -145,7 +144,7 @@ const SignUpForm = () => {
           </div>
           {/* SUBMIT */}
           <div className="flex justify-center">
-          <button
+            <button
               type="submit"
               className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white uppercase hover:bg-blue-700 transition duration-300"
             >
@@ -158,13 +157,14 @@ const SignUpForm = () => {
   );
 };
 
-
-//connexion form 
+//connexion form
 const ConnexionForm = () => {
   const [connexionFormData, setConnexionFormData] = useState({
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const handleConnexion = async (e) => {
     e.preventDefault();
@@ -184,12 +184,12 @@ const ConnexionForm = () => {
         //Sauvegarde du token dans le local storage
         localStorage.setItem("token", data.token);
         console.log("Token reçu du backend:", data.token);
-        toast.success("Connexion réussie !");
-           // Réinitialiser les champs du formulaire de connexion
-           setConnexionFormData({
-            email: "",
-            password: "",
-          });
+        navigate("/");
+        // Réinitialiser les champs du formulaire de connexion
+        setConnexionFormData({
+          email: "",
+          password: "",
+        });
       } else {
         // Gérer les erreurs ici
         console.error("Erreur lors de la requête:", response.status);
@@ -207,8 +207,6 @@ const ConnexionForm = () => {
       [e.target.name]: e.target.value,
     });
   };
-
- 
 
   return (
     <div className="w-full ">
@@ -271,20 +269,30 @@ const ConnexionForm = () => {
 export default function LogSign() {
   return (
     <main className="isolate ">
-     <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover  style={{ top: '100px' }}  />
-     <div className="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
-      <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen">
-        {/* SIGN IN */}
-        <section className="relative flex flex-wrap items-center justify-center w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2  ">
-          <SignUpForm />
-        </section>
-        {/* LOGIN */}
-        <section className="relative flex flex-wrap items-center justify-center w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2  ">
-          <ConnexionForm />
-        </section>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        style={{ top: "100px" }}
+      />
+      <div className="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
+        <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen">
+          {/* SIGN IN */}
+          <section className="relative flex flex-wrap items-center justify-center w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2  ">
+            <SignUpForm />
+          </section>
+          {/* LOGIN */}
+          <section className="relative flex flex-wrap items-center justify-center w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2  ">
+            <ConnexionForm />
+          </section>
+        </div>
       </div>
-      
-    </div>
     </main>
   );
 }
