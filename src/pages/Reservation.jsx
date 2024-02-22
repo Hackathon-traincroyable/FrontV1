@@ -1,4 +1,4 @@
-export default function Example() {
+export default function Reservation() {
   return (
     <div className="bg-white">
       <main className="isolate">

@@ -218,18 +218,6 @@ const ConnexionForm = () => {
     });
   };
 
-  const handlePaymentClick = () => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      // Si l'utilisateur n'est pas connecté, définissez la page de redirection et redirigez vers la page de connexion
-      localStorage.setItem("loginRedirect", "/cart"); // Définir la page de redirection vers le panier
-      navigate("/logSign?mode=login"); // Rediriger vers la page de connexion
-    } else {
-      // Logique de paiement ici si l'utilisateur est connecté
-    }
-  };
-
   return (
     <div className="w-full ">
       <div className="mx-auto max-w-lg text-center">
