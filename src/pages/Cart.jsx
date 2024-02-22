@@ -1,4 +1,18 @@
+import React, { useState, useEffect } from 'react';
+
 export default function Example() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
+  useEffect(() => {
+    // Vérifiez si un token existe dans le localStorage
+    const token = localStorage.getItem('token');
+    // Si un token existe, considérez l'utilisateur comme connecté
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []); // Le tableau vide signifie que cet effet ne s'exécute qu'au montage du composant
+
+
   return (
     <div className="bg-white">
       <main className="isolate">
@@ -9,7 +23,6 @@ export default function Example() {
               <div className="max-w-4xl mx-auto">
                 {/* Info, occupe 2 fractions */}
                 <div className="md:col-span-2 bg-white shadow-lg rounded-lg p-8">
-                  {" "}
                   {/* Ajustez pour que cette div occupe 2/3 de l'espace disponible */}
                   <h2 className="text-3xl font-bold text-gray-800">
                     Votre Panier
@@ -47,9 +60,12 @@ export default function Example() {
                     <p className="text-xl">85€</p>
                   </div>
                   <div className="flex justify-end space-x-4 mt-8">
-                    <button className="inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 uppercase">
-                      Payer
-                    </button>
+                    {/* Le bouton Payer n'apparaît que si `isLoggedIn` est `true` */}
+                    {isLoggedIn && (
+                      <button className="inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 uppercase">
+                        Payer
+                      </button>
+                    )}
                     <button className="inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 uppercase">
                       Se connecter pour payer
                     </button>
