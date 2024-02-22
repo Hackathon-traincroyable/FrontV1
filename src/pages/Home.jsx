@@ -65,7 +65,6 @@ export default function Home() {
         >
           <source src="assets/video.mp4" type="video/mp4" />
         </video>
-
         <div className="relative isolate -z-10">
           <div className="overflow-hidden">
             <div className="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
