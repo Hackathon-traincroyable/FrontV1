@@ -183,6 +183,7 @@ const ConnexionForm = () => {
         const data = await response.json();
         //Sauvegarde du token dans le local storage
         localStorage.setItem("token", data.token);
+        localStorage.setItem("lastName", data.lastName);
         console.log("Token reçu du backend:", data.token);
         navigate("/");
         // Réinitialiser les champs du formulaire de connexion

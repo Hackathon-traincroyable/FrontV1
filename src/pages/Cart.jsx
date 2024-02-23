@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Cart() {
   const [cartItems, setCartItems] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     // Vérifiez si un token existe dans le localStorage
@@ -59,6 +58,17 @@ export default function Cart() {
       setCartItems((prevItems) =>
         prevItems.filter((item) => item._id !== tripId)
       );
+
+      // Affichez un toast après la suppression réussie
+      toast.success(`supprimé du panier.`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
 
       console.log(`Trajet avec l'ID ${tripId} supprimé du panier.`);
     } catch (error) {

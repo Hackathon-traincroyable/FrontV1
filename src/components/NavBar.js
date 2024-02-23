@@ -11,6 +11,7 @@ const navigation = [
 
 const handleDeconnexion = () => {
   localStorage.removeItem("token");
+  localStorage.removeItem("lastName");
   console.log("Utilisateur déconnecté");
   alert("Vous êtes maintenant déconnecté.");
   window.location.reload();
@@ -20,7 +21,7 @@ export default function NavBar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
   const estConnecte = localStorage.getItem("token");
-  const nomUtilisateur = localStorage.getItem("userName");
+  const nomUtilisateur = localStorage.getItem("lastName");
 
   return (
     <div className="">
@@ -84,13 +85,28 @@ export default function NavBar() {
             {/* Affichez le bouton de déconnexion si l'utilisateur est connecté, sinon affichez le bouton de connexion */}
             {estConnecte ? (
               <>
-                <div className="mr-4 flex items-center justify-center h-8 w-8 rounded-full bg-blue-500 text-white">
-                  <span>{nomUtilisateur ? nomUtilisateur[0] : "U"}</span>{" "}
-                  {/* Afficher l'initiale du nom de l'utilisateur ou 'U' par défaut */}
+                <div className="flex items-center">
+                  <div className="mr-4 flex items-center justify-center h-8 w-8 rounded-full bg-white-500 text-white">
+                    {/* Remplacez-la par une image générée à partir de robohash.org */}
+                    <img
+                      className="rounded-full"
+                      src={`https://robohash.org/${nomUtilisateur}?set=set1&size=128x128`}
+                      alt="Avatar Utilisateur"
+                    />
+                  </div>
+
+                  {/* Ajout du nom de l'utilisateur sous la pastille */}
+                  <span
+                    className={`font-bold text-ms ${
+                      location.pathname === "/" ? "text-white" : "text-black"
+                    } mr-6 uppercase`}
+                  >
+                    {nomUtilisateur}
+                  </span>
                 </div>
                 <button
                   onClick={handleDeconnexion}
-                  className="ml-6 inline-flex items-center rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  className="inline-flex items-center rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Déconnexion
                 </button>
