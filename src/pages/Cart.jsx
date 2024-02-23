@@ -56,39 +56,36 @@ export default function Cart() {
     fetchCartItems();
   }, []); // Fait la requête qu'une foishargement initial
 
-  const addToReservations = async () => {
+  const payerEtAjouterAuxReservations = async () => {
     try {
-      // Récupérer le token depuis le localStorage
+      // Récupérer le token depuis le localStorage pour authentifier l'utilisateur
       const token = localStorage.getItem("token");
 
-      // Récupérer les IDs actuels depuis le local storage
-      // j'ai un tableau d'id des trajet présent dans Panier stocké dans le localStorage
-      const localTripsIds = JSON.parse(localStorage.getItem("cart")) || [];
+      // Récupérer les identifiants des trajets actuellement dans le panier
+      const idsTrajetsPanier = JSON.parse(localStorage.getItem("cart")) || [];
 
-      // Envoyer une requête au backend pour ajouter les trajets aux réservations
-      const response = await fetch(
-        "http://localhost:3000/add-to-reservations",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          // on envoie le token pour identifier l'utilisateur , ensuite on récup le tableau d'id et on l'envoie au back (ma route va se charger de modifier User.Trips par ces reservations (de base tableau vide))
-          body: JSON.stringify({ token, trips: localTripsIds }),
-        }
-      );
-      if (response.ok) {
-        // Mettre à jour l'état ou effectuer toute autre action nécessaire dans votre application
+      // Effectuer une requête au serveur pour ajouter les trajets sélectionnés aux réservations de l'utilisateur
+      const reponse = await fetch("http://localhost:3000/add-to-reservations", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // Envoyer le token et les identifiants des trajets pour les ajouter aux réservations de l'utilisateur
+        body: JSON.stringify({ token, trips: idsTrajetsPanier }),
+      });
+      if (reponse.ok) {
+        // Vider le panier et mettre à jour l'état local après l'ajout réussi aux réservations
         setCartItems([]);
-        localStorage.removeItem("cart"); // Effacer les trajets du panier après l'ajout aux réservations
+        localStorage.removeItem("cart"); // Supprimer les trajets du panier local après leur ajout aux réservations
         console.log("Trajets ajoutés aux réservations avec succès.");
+        navigate("/reservation"); // Rediriger l'utilisateur vers la page des réservations
       } else {
         console.error("Erreur lors de l'ajout des trajets aux réservations.");
       }
-    } catch (error) {
+    } catch (erreur) {
       console.error(
         "Erreur lors de l'ajout des trajets aux réservations.",
-        error
+        erreur
       );
     }
   };
@@ -207,7 +204,7 @@ export default function Cart() {
                       {/* Le bouton Payer n'apparaît que si `isLoggedIn` est `true` */}
                       {isLoggedIn && (
                         <button
-                          onClick={addToReservations}
+                          onClick={payerEtAjouterAuxReservations}
                           className="inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 uppercase"
                         >
                           Payer
