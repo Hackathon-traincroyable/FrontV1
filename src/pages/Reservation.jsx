@@ -2,26 +2,39 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 
 export default function Reservation() {
-  //UseState qui va stockés les trajets ispaid=true (.map(paidTrips) pour afficher)
-  const [paidTrips, setPaidTrips] = useState([]);
+  const [userReservations, setUserReservations] = useState([]);
+
   useEffect(() => {
-    // Récupérer les trajets payés depuis le backend
-    const fetchPaidTrips = async () => {
+    const fetchUserReservations = async () => {
       try {
-        const response = await fetch("http://localhost:3000/get-paid-trips");
+        // Effectuez une requête à la route user-reservations pour obtenir les réservations de l'utilisateur
+        const response = await fetch(
+          "http://localhost:3000/user-reservations",
+          {
+            method: "GET",
+            headers: {
+              // Ajoutez vos en-têtes nécessaires, par exemple, si vous avez un token d'authentification
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        );
+
         if (response.ok) {
-          const paidTripsData = await response.json();
-          setPaidTrips(paidTripsData);
+          const { reservations } = await response.json();
+          setUserReservations(reservations);
         } else {
-          console.error("Erreur lors de la récupération des trajets payés.");
+          console.error(
+            "Erreur lors de la récupération des réservations de l'utilisateur."
+          );
         }
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchPaidTrips();
+    fetchUserReservations();
   }, []);
+
   return (
     <div className="bg-white">
       <main className="isolate">
@@ -33,20 +46,22 @@ export default function Reservation() {
                   <h2 className="text-3xl font-bold text-gray-800">
                     Réservation
                   </h2>
-                  {paidTrips.map((trip) => (
+                  {userReservations.map((reservation) => (
                     <div
-                      key={trip._id}
+                      key={reservation.token}
                       className="flex flex-col lg:flex-row  justify-between items-center shadow-lg p-5 mb-4"
                     >
                       <div className="flex flex-col sm:flex-row sm:flex-grow sm:items-center space-x-0 sm:space-x-20 space-y-2 sm:space-y-0">
                         <h4 className="text-xl font-semibold flex-shrink-0">
-                          Départ: {trip.departure} - Arrivée: {trip.arrival}
+                          Départ: {reservation.departure} - Arrivée:
+                          {reservation.arrival}
                         </h4>
                         <p className="text-lg flex-shrink-0">
-                          Date: {moment(trip.date).format("YYYY-MM-DD")}
+                          Date:{" "}
+                          {moment(reservation.date).format("YYYY-MM-DD HH:mm")}
                         </p>
                         <p className="text-lg flex-shrink-0">
-                          Prix: {trip.price}€
+                          Prix: {reservation.price} €
                         </p>
                       </div>
                     </div>
