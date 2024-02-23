@@ -41,8 +41,8 @@ export default function Home() {
   });
 
   //USE STATES
+  const [isLoading, setIsLoading] = useState(false); // Variable d'état pour la barre de chargement
   const [searchResults, setSearchResults] = useState([]); //Resultat de la recherche
-
   const [selectedTrips, setSelectedTrips] = useState([]); //Trip ajoutés dans le panier
 
   // stock dans la variale d'état les valeurs des inputs à leurs changements
@@ -55,6 +55,7 @@ export default function Home() {
   };
 
   const handleSearch = async () => {
+    setIsLoading(true); // Activez la barre de chargement
     // Formatage date avec moment, on donne un intervalle pour afficher tous les trajets du jour
     const startDate = moment(formData.date, "YYYY-MM-DD")
       .startOf("day")
@@ -78,11 +79,15 @@ export default function Home() {
 
     if (response.ok) {
       const trips = await response.json();
-      setSearchResults(trips);
-      console.log("Trips:", trips);
-      // Faites quelque chose avec les résultats de la recherche (par exemple, mettre à jour l'état pour afficher les résultats)
+      // Utilisez setTimeout pour retarder la mise à jour de l'état
+      setTimeout(() => {
+        setSearchResults(trips);
+        setIsLoading(false); // Désactivez la barre de chargement après un délai
+      }, 2000); // Retarde de 2000 millisecondes (2 secondes)
     } else {
       console.error("Erreur lors de la recherche de trajets.");
+      toast.error("Erreur lors de la recherche.");
+      setIsLoading(false); // Assurez-vous de désactiver la barre de chargement même en cas d'erreur
     }
   };
 
@@ -242,38 +247,52 @@ export default function Home() {
               </button>
             </form>
           </div>
-          {/* Info, occupe 2 fracti ons */}
+          {/* Section des meilleurs prix */}
           <div className="md:col-span-2 bg-white shadow-lg rounded-lg p-8">
             <h3 className="text-xl font-semibold mb-6 text-center uppercase">
               meilleur prix
             </h3>
-
-            {/* Affichez dynamiquement les résultats de la recherche */}
-            {searchResults.map((result, index) => (
-              <div
-                key={index}
-                className="flex justify-between items-center shadow-lg p-4 mb-4"
-              >
-                <div>
-                  <h4 className="text-xl font-semibold">
-                    Départ: {result.departure} - Arrivée: {result.arrival}
-                  </h4>
-                  <p className="text-lg">
-                    Heure de départ: {moment(result.date).format("HH:mm")}
-                  </p>
-                  <p className="text-lg font-bold text-black">Prix: {result.price}€</p>
+            {isLoading ? (
+              <div className="flex justify-center items-center">
+                <div className="w-full bg-gray-200 rounded-full">
+                  <div
+                    className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                    style={{ width: "50%" }}
+                  >
+                    Chargement...
+                  </div>
                 </div>
-                <button
-                  onClick={() => handleChoose(result._id)}
-                  className="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                >
-                  Choisir
-                </button>
               </div>
-            ))}
+            ) : (
+              searchResults.map((result, index) => (
+                <div
+                  key={index}
+                  className="flex justify-between items-center shadow-lg p-4 mb-4"
+                >
+                  <div>
+                    <h4 className="text-xl font-semibold">
+                      Départ: {result.departure} - Arrivée: {result.arrival}
+                    </h4>
+                    <p className="text-lg">
+                      Heure de départ: {moment(result.date).format("HH:mm")}
+                    </p>
+                    <p className="text-lg font-bold text-black">
+                      Prix: {result.price}€
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => handleChoose(result._id)}
+                    className="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  >
+                    Choisir
+                  </button>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>
+
       {/* section carte voyage */}
       <div className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
