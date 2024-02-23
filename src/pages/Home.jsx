@@ -259,7 +259,7 @@ export default function Home() {
                     Départ: {result.departure} - Arrivée: {result.arrival}
                   </h4>
                   <p className="text-lg">
-                    Date: {moment(result.date).format("YYYY-MM-DD")}
+                    Heure de départ: {moment(result.date).format("HH:mm")}
                   </p>
                   <p className="text-lg">Prix: {result.price}€</p>
                 </div>
