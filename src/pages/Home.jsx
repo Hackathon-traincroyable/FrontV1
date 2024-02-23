@@ -83,7 +83,7 @@ export default function Home() {
       setTimeout(() => {
         setSearchResults(trips);
         setIsLoading(false); // Désactivez la barre de chargement après un délai
-      }, 2000); // Retarde de 2000 millisecondes (2 secondes)
+      }, 3000); // Retarde de 2000 millisecondes (3 secondes)
     } else {
       console.error("Erreur lors de la recherche de trajets.");
       toast.error("Erreur lors de la recherche.");
