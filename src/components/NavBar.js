@@ -86,9 +86,15 @@ export default function NavBar() {
             {estConnecte ? (
               <>
                 <div className="flex items-center">
-                  <div className="mr-4 flex items-center justify-center h-8 w-8 rounded-full bg-blue-500 text-white">
-                    <span>{nomUtilisateur ? nomUtilisateur[0] : "U"}</span>
+                  <div className="mr-4 flex items-center justify-center h-8 w-8 rounded-full bg-white-500 text-white">
+                    {/* Remplacez-la par une image générée à partir de robohash.org */}
+                    <img
+                      className="rounded-full"
+                      src={`https://robohash.org/${nomUtilisateur}?set=set1&size=128x128`}
+                      alt="Avatar Utilisateur"
+                    />
                   </div>
+
                   {/* Ajout du nom de l'utilisateur sous la pastille */}
                   <span
                     className={`font-bold text-ms ${
