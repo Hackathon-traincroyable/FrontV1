@@ -8,15 +8,6 @@ export default function Cart() {
   const navigate = useNavigate();
   const [cartItems, setCartItems] = useState([]);
 
-  useEffect(() => {
-    // Vérifiez si un token existe dans le localStorage
-    const token = localStorage.getItem("token");
-    // Si un token existe, considérez l'utilisateur comme connecté
-    if (token) {
-      setIsLoggedIn(true);
-    }
-  }, []); // Le tableau vide signifie que cet effet ne s'exécute qu'au montage du composant
-
   const handlePaymentClick = () => {
     if (!isLoggedIn) {
       // Si l'utilisateur n'est pas connecté, définissez la page de redirection et redirigez vers la page de connexion
@@ -29,6 +20,12 @@ export default function Cart() {
   };
 
   useEffect(() => {
+    // Vérifiez si un token existe dans le localStorage
+    const token = localStorage.getItem("token");
+    // Si un token existe, considérez l'utilisateur comme connecté
+    if (token) {
+      setIsLoggedIn(true);
+    }
     // Récupérer les IDs depuis le local storage
     const storedIds = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -57,7 +54,44 @@ export default function Cart() {
     };
 
     fetchCartItems();
-  }, []); // Effectuer la requête une seule fois lors du chargement initial
+  }, []); // Fait la requête qu'une foishargement initial
+
+  const addToReservations = async () => {
+    try {
+      // Récupérer le token depuis le localStorage
+      const token = localStorage.getItem("token");
+
+      // Récupérer les IDs actuels depuis le local storage
+      // j'ai un tableau d'id des trajet présent dans Panier stocké dans le localStorage
+      const localTripsIds = JSON.parse(localStorage.getItem("cart")) || [];
+
+      // Envoyer une requête au backend pour ajouter les trajets aux réservations
+      const response = await fetch(
+        "http://localhost:3000/add-to-reservations",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          // on envoie le token pour identifier l'utilisateur , ensuite on récup le tableau d'id et on l'envoie au back (ma route va se charger de modifier User.Trips par ces reservations (de base tableau vide))
+          body: JSON.stringify({ token, trips: localTripsIds }),
+        }
+      );
+      if (response.ok) {
+        // Mettre à jour l'état ou effectuer toute autre action nécessaire dans votre application
+        setCartItems([]);
+        localStorage.removeItem("cart"); // Effacer les trajets du panier après l'ajout aux réservations
+        console.log("Trajets ajoutés aux réservations avec succès.");
+      } else {
+        console.error("Erreur lors de l'ajout des trajets aux réservations.");
+      }
+    } catch (error) {
+      console.error(
+        "Erreur lors de l'ajout des trajets aux réservations.",
+        error
+      );
+    }
+  };
 
   const handleRemoveFromCart = async (tripId) => {
     try {
@@ -172,7 +206,10 @@ export default function Cart() {
                     <div className="flex justify-end space-x-4 mt-8">
                       {/* Le bouton Payer n'apparaît que si `isLoggedIn` est `true` */}
                       {isLoggedIn && (
-                        <button className="inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 uppercase">
+                        <button
+                          onClick={addToReservations}
+                          className="inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 uppercase"
+                        >
                           Payer
                         </button>
                       )}
