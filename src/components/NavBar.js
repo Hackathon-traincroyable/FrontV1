@@ -11,6 +11,7 @@ const navigation = [
 
 const handleDeconnexion = () => {
   localStorage.removeItem("token");
+  localStorage.removeItem("lastName");
   console.log("Utilisateur déconnecté");
   alert("Vous êtes maintenant déconnecté.");
   window.location.reload();
@@ -20,7 +21,7 @@ export default function NavBar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
   const estConnecte = localStorage.getItem("token");
-  const nomUtilisateur = localStorage.getItem("userName");
+  const nomUtilisateur = localStorage.getItem("lastName");
 
   return (
     <div className="">
@@ -89,7 +90,11 @@ export default function NavBar() {
                     <span>{nomUtilisateur ? nomUtilisateur[0] : "U"}</span>
                   </div>
                   {/* Ajout du nom de l'utilisateur sous la pastille */}
-                  <span className="text-sm text-white mr-6">
+                  <span
+                    className={`font-bold text-ms ${
+                      location.pathname === "/" ? "text-white" : "text-black"
+                    } mr-6 uppercase`}
+                  >
                     {nomUtilisateur}
                   </span>
                 </div>
