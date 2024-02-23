@@ -185,11 +185,6 @@ const ConnexionForm = () => {
         localStorage.setItem("token", data.token);
         localStorage.setItem("lastName", data.lastName);
         console.log("Token reçu du backend:", data.token);
-        console.log(
-          "Token et nom de l'utilisateur reçus du backend:",
-          data.token,
-          data.lastName
-        );
         navigate("/");
         // Réinitialiser les champs du formulaire de connexion
         setConnexionFormData({
