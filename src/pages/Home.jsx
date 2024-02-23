@@ -255,9 +255,11 @@ export default function Home() {
               meilleur prix
             </h3>
             {!isLoading && searchResults.length === 0 && (
-              <div className="text-center text-gray-600 mb-6 animate-pulse">
-                Sélectionnez votre voyage parmi les options ci-dessous pour les
-                meilleurs tarifs disponibles.
+              <div className="flex justify-center items-center h-full">
+                <div className="text-center text-gray-600 mb-6 animate-pulse">
+                  Sélectionnez votre voyage parmi les options ci-dessous pour
+                  les meilleurs tarifs disponibles.
+                </div>
               </div>
             )}
             {isLoading ? (
