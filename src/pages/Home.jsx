@@ -254,12 +254,16 @@ export default function Home() {
             <h3 className="text-xl font-semibold mb-6 text-center uppercase">
               meilleur prix
             </h3>
+            {!isLoading && searchResults.length === 0 && (
+              <div className="text-center text-gray-600 mb-6 animate-pulse">
+                Sélectionnez votre voyage parmi les options ci-dessous pour les
+                meilleurs tarifs disponibles.
+              </div>
+            )}
             {isLoading ? (
               <div className="flex justify-center items-center">
                 <div className="w-full bg-gray-200 rounded-full">
-                  <div className="">
-                    <Lottie animationData={Animation} />
-                  </div>
+                  <Lottie animationData={Animation} />
                 </div>
               </div>
             ) : (
