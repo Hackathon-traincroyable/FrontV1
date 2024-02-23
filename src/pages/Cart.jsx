@@ -133,7 +133,7 @@ export default function Cart() {
                           <p className="text-lg flex-shrink-0">
                             {moment(item.date).format("HH:mm")}
                           </p>
-                          <p className="text-lg flex-shrink-0">
+                          <p className="text-lg flex-shrink-0 font-bold text-black">
                             Prix: {item.price}€
                           </p>
                         </div>

@@ -261,7 +261,7 @@ export default function Home() {
                   <p className="text-lg">
                     Heure de départ: {moment(result.date).format("HH:mm")}
                   </p>
-                  <p className="text-lg">Prix: {result.price}€</p>
+                  <p className="text-lg font-bold text-black">Prix: {result.price}€</p>
                 </div>
                 <button
                   onClick={() => handleChoose(result._id)}
