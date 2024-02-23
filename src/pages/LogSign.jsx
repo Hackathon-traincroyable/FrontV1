@@ -28,7 +28,7 @@ const SignUpForm = () => {
 
       if (response.ok) {
         const data = await response.json();
-        // Faire quelque chose avec la réponse du backend, par exemple, enregistrer le token
+
         console.log("Token reçu du backend:", data.token);
         toast.success("Vous êtes bien inscrit !");
 

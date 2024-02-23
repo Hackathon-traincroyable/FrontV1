@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
 export default function Cart() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate();
   const [cartItems, setCartItems] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
@@ -16,20 +14,6 @@ export default function Cart() {
     if (token) {
       setIsLoggedIn(true);
     }
-  }, []); // Le tableau vide signifie que cet effet ne s'exécute qu'au montage du composant
-
-  const handlePaymentClick = () => {
-    if (!isLoggedIn) {
-      // Si l'utilisateur n'est pas connecté, définissez la page de redirection et redirigez vers la page de connexion
-      localStorage.setItem("loginRedirect", "/cart"); // Définir la page de redirection vers le panier
-      navigate("/logSign?mode=login"); // Rediriger vers la page de connexion
-    } else {
-      // Logique de paiement ici si l'utilisateur est connecté
-      // Par exemple, rediriger vers une page de paiement ou afficher un formulaire de paiement
-    }
-  };
-
-  useEffect(() => {
     // Récupérer les IDs depuis le local storage
     const storedIds = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -58,7 +42,7 @@ export default function Cart() {
     };
 
     fetchCartItems();
-  }, []); // Effectuer la requête une seule fois lors du chargement initial
+  }, []); // Fait la requête qu'une fois
 
   const handleRemoveFromCart = async (tripId) => {
     try {
@@ -97,37 +81,40 @@ export default function Cart() {
     }
   };
 
-  //Fetch ma route qui modifie isPaid=false en true, depuis le tableaux d'id du localStorage
-  const handlePayCart = async () => {
+  const addToReservations = async () => {
     try {
-      // récupération des id dans le local storage
-      const storedIds = JSON.parse(localStorage.getItem("cart")) || [];
+      // Récupérer le token depuis le localStorage
+      const token = localStorage.getItem("token");
 
-      // Fetch vers ma route backend pay-cart
-      const response = await fetch("http://localhost:3000/pay-cart", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ tripIds: storedIds }),
-      });
+      // Récupérer les IDs actuels depuis le local storage
+      // j'ai un tableau d'id des trajet présent dans Panier stocké dans le localStorage
+      const localTripsIds = JSON.parse(localStorage.getItem("cart")) || [];
 
+      // Envoyer une requête au backend pour ajouter les trajets aux réservations
+      const response = await fetch(
+        "http://localhost:3000/add-to-reservations",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          // on envoie le token pour identifier l'utilisateur , ensuite on récup le tableau d'id et on l'envoie au back (ma route va se charger de modifier User.Trips par ces reservations (de base tableau vide))
+          body: JSON.stringify({ token, trips: localTripsIds }),
+        }
+      );
       if (response.ok) {
-        // Dans le localStorage on modifie en true
-        const updatedCartItems = cartItems.map((item) => ({
-          ...item,
-          isPaid: true,
-        }));
-        //On met a jour la variable d'état avec les nouuvelles infos
-        setCartItems(updatedCartItems);
-
-        // Delete panier après paiement
-        localStorage.removeItem("cart");
+        // Mettre à jour l'état ou effectuer toute autre action nécessaire dans votre application
+        setCartItems([]);
+        localStorage.removeItem("cart"); // Effacer les trajets du panier après l'ajout aux réservations
+        console.log("Trajets ajoutés aux réservations avec succès.");
       } else {
-        console.error("Erreur lors du paiement du panier.");
+        console.error("Erreur lors de l'ajout des trajets aux réservations.");
       }
     } catch (error) {
-      console.error(error);
+      console.error(
+        "Erreur lors de l'ajout des trajets aux réservations.",
+        error
+      );
     }
   };
 
@@ -152,7 +139,7 @@ export default function Cart() {
                     >
                       <div className="flex flex-col sm:flex-row sm:flex-grow sm:items-center space-x-0 sm:space-x-10 space-y-2 sm:space-y-0">
                         <h4 className="text-xl font-semibold flex-shrink-0">
-                          Départ: {item.depart} - Arrivée: {item.arrivee}
+                          Départ: {item.departure} - Arrivée: {item.arrival}
                         </h4>
                         <p className="text-lg flex-shrink-0">
                           Date: {moment(item.date).format("YYYY-MM-DD")}
@@ -194,7 +181,7 @@ export default function Cart() {
                     {/* Le bouton Payer n'apparaît que si `isLoggedIn` est `true` */}
                     {isLoggedIn && (
                       <button
-                        onClick={handlePayCart}
+                        onClick={addToReservations}
                         className="inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 uppercase"
                       >
                         Payer
