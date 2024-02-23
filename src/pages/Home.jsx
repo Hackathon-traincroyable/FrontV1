@@ -1,7 +1,7 @@
 import moment from "moment";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import groovyWalkAnimation from "../lotties/groovyWalk.json";
+import Animation from "../lotties/train.json";
 import Lottie from "lottie-react";
 
 export default function Home() {
@@ -136,8 +136,6 @@ export default function Home() {
     }
   };
 
-
-
   return (
     <main className="isolate">
       <ToastContainer
@@ -259,8 +257,8 @@ export default function Home() {
             {isLoading ? (
               <div className="flex justify-center items-center">
                 <div className="w-full bg-gray-200 rounded-full">
-                  <div className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full">
-                    <Lottie animationData={groovyWalkAnimation} />
+                  <div className="">
+                    <Lottie animationData={Animation} />
                   </div>
                 </div>
               </div>
