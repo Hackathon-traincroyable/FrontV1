@@ -56,7 +56,7 @@ export default function Cart() {
     fetchCartItems();
   }, []); // Fait la requête qu'une foishargement initial
 
-  const payerEtAjouterAuxReservations = async () => {
+  const addToReservations = async () => {
     try {
       // Récupérer le token depuis le localStorage pour authentifier l'utilisateur
       const token = localStorage.getItem("token");
@@ -204,7 +204,7 @@ export default function Cart() {
                       {/* Le bouton Payer n'apparaît que si `isLoggedIn` est `true` */}
                       {isLoggedIn && (
                         <button
-                          onClick={payerEtAjouterAuxReservations}
+                          onClick={addToReservations}
                           className="inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 uppercase"
                         >
                           Payer
