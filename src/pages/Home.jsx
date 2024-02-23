@@ -259,7 +259,7 @@ export default function Home() {
                     "YYYY-MM-DD"
                   )} /* On passe le même format de date que mangoDB */
                   onChange={handleInputChange}
-                  className="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-base"
+                  className="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-base"
                 />
               </div>
               <button
@@ -294,7 +294,7 @@ export default function Home() {
                 </div>
                 <button
                   onClick={() => handleChoose(result._id)}
-                  className="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
                   Choisir
                 </button>
