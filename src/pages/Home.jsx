@@ -80,8 +80,10 @@ export default function Home() {
     });
 
     if (response.ok) {
-      const trips = await response.json();
+      let trips = await response.json();
       // Utilisez setTimeout pour retarder la mise à jour de l'état
+
+      trips = trips.sort((a, b) => a.price - b.price);
       setTimeout(() => {
         setSearchResults(trips);
         setIsLoading(false); // Désactivez la barre de chargement après un délai
