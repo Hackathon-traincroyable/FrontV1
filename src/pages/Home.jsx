@@ -1,6 +1,8 @@
 import moment from "moment";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import Animation from "../lotties/train.json";
+import Lottie from "lottie-react";
 
 export default function Home() {
   //Tableau affichage ed données front
@@ -252,15 +254,18 @@ export default function Home() {
             <h3 className="text-xl font-semibold mb-6 text-center uppercase">
               meilleur prix
             </h3>
+            {!isLoading && searchResults.length === 0 && (
+              <div className="flex justify-center items-center h-full">
+                <div className="text-center text-gray-600 mb-6 animate-pulse">
+                  Sélectionnez votre voyage parmi les options ci-dessous pour
+                  les meilleurs tarifs disponibles.
+                </div>
+              </div>
+            )}
             {isLoading ? (
               <div className="flex justify-center items-center">
                 <div className="w-full bg-gray-200 rounded-full">
-                  <div
-                    className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
-                    style={{ width: "50%" }}
-                  >
-                    Chargement...
-                  </div>
+                  <Lottie animationData={Animation} />
                 </div>
               </div>
             ) : (

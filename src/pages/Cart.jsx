@@ -13,6 +13,25 @@ export default function Cart() {
     if (token) {
       setIsLoggedIn(true);
     }
+
+  const handlePaymentClick = () => {
+    if (!isLoggedIn) {
+      // Si l'utilisateur n'est pas connecté, définissez la page de redirection et redirigez vers la page de connexion
+      localStorage.setItem("loginRedirect", "/cart"); // Définir la page de redirection vers le panier
+      navigate("/logSign?mode=login"); // Rediriger vers la page de connexion
+    } else {
+      // Logique de paiement ici si l'utilisateur est connecté
+      // Par exemple, rediriger vers une page de paiement ou afficher un formulaire de paiement
+    }
+  };
+
+  useEffect(() => {
+    // Vérifiez si un token existe dans le localStorage
+    const token = localStorage.getItem("token");
+    // Si un token existe, considérez l'utilisateur comme connecté
+    if (token) {
+      setIsLoggedIn(true);
+    }
     // Récupérer les IDs depuis le local storage
     const storedIds = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -42,6 +61,44 @@ export default function Cart() {
 
     fetchCartItems();
   }, []); // Fait la requête qu'une fois
+  }, []); // Fait la requête qu'une foishargement initial
+
+  const addToReservations = async () => {
+    try {
+      // Récupérer le token depuis le localStorage
+      const token = localStorage.getItem("token");
+
+      // Récupérer les IDs actuels depuis le local storage
+      // j'ai un tableau d'id des trajet présent dans Panier stocké dans le localStorage
+      const localTripsIds = JSON.parse(localStorage.getItem("cart")) || [];
+
+      // Envoyer une requête au backend pour ajouter les trajets aux réservations
+      const response = await fetch(
+        "http://localhost:3000/add-to-reservations",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          // on envoie le token pour identifier l'utilisateur , ensuite on récup le tableau d'id et on l'envoie au back (ma route va se charger de modifier User.Trips par ces reservations (de base tableau vide))
+          body: JSON.stringify({ token, trips: localTripsIds }),
+        }
+      );
+      if (response.ok) {
+        // Mettre à jour l'état ou effectuer toute autre action nécessaire dans votre application
+        setCartItems([]);
+        localStorage.removeItem("cart"); // Effacer les trajets du panier après l'ajout aux réservations
+        console.log("Trajets ajoutés aux réservations avec succès.");
+      } else {
+        console.error("Erreur lors de l'ajout des trajets aux réservations.");
+      }
+    } catch (error) {
+      console.error(
+        "Erreur lors de l'ajout des trajets aux réservations.",
+        error
+      );
+    }
+  };
 
   const handleRemoveFromCart = async (tripId) => {
     try {
@@ -206,6 +263,91 @@ export default function Cart() {
                         Se connecter pour payer
                       </button>
                     )}
+
+        <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          style={{ top: "100px" }}
+        />
+        <div className="flex justify-center items-center min-h-screen">
+          <div className="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
+            <div className="text-center py-8">
+              <div className="mt-6">
+                <div className="max-w-4xl mx-auto">
+                  {/* Info, occupe 2 fractions */}
+                  <div className="md:col-span-2 bg-white shadow-lg rounded-lg p-8">
+                    {/* Ajustez pour que cette div occupe 2/3 de l'espace disponible */}
+                    <h2 className="text-3xl font-bold text-gray-800">
+                      Votre Panier
+                    </h2>
+                    {cartItems.map((item) => (
+                      <div
+                        key={item._id}
+                        className="flex flex-col lg:flex-row justify-between items-center shadow-lg p-4"
+                      >
+                        <div className="flex flex-col sm:flex-row sm:flex-grow sm:items-center space-x-0 sm:space-x-10 space-y-2 sm:space-y-0">
+                          <h4 className="text-xl font-semibold flex-shrink-0">
+                            Départ: {item.departure} - Arrivée: {item.arrival}
+                          </h4>
+                          <p className="text-lg flex-shrink-0">
+                            {moment(item.date).format("HH:mm")}
+                          </p>
+                          <p className="text-lg flex-shrink-0 font-bold text-black">
+                            Prix: {item.price}€
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => handleRemoveFromCart(item._id)}
+                          className="mt-5 sm:mt-4 sm:ml-4 inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-6 w-6 mr-2"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    ))}
+                    <div className="flex justify-between items-center mt-8 p-4 bg-gray-100 rounded-lg">
+                      <h3 className="text-xl font-semibold">Total Prix:</h3>
+                      <p className="text-xl">
+                        {" "}
+                        {cartItems.reduce(
+                          (total, item) => total + item.price,
+                          0
+                        )}
+                        €
+                      </p>
+                    </div>
+                    <div className="flex justify-end space-x-4 mt-8">
+                      {/* Le bouton Payer n'apparaît que si `isLoggedIn` est `true` */}
+                      {isLoggedIn && (
+                        <button
+                          onClick={addToReservations}
+                          className="inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 uppercase"
+                        >
+                          Payer
+                        </button>
+                      )}
+                      {/* Le bouton Se connecter pour payer n'apparaît que si `isLoggedIn` est `false` */}
+                      {!isLoggedIn && (
+                        <button
+                          onClick={handlePaymentClick}
+                          className="inline-flex items-center justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 uppercase"
+                        >
+                          Se connecter pour payer
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
