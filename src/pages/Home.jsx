@@ -178,24 +178,20 @@ export default function Home() {
       {/* section centrée avec ajustement des colonnes */}
       <div className="flex justify-center">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 max-w-6xl">
-          {" "}
-          {/* Utilisez 3 colonnes au lieu de 2 pour un contrôle plus fin */}
+          {" "} {/* Utilisez 3 colonnes au lieu de 2 pour un contrôle plus fin */}
           {/* Première carte avec formulaire, occupe 1 fraction */}
           <div className="md:col-span-1 bg-white shadow-lg rounded-lg p-8">
-            {" "}
-            {/* Ajustez pour que cette div occupe 1/3 de l'espace disponible */}
+            {" "} {/* Ajustez pour que cette div occupe 1/3 de l'espace disponible */}
             <h3 className="text-xl font-semibold mb-6">Où allez-vous?</h3>
             <form>
               <div className="mb-6">
-                {" "}
-                {/* Augmentez le margin-bottom */}
+                {" "} {/* Augmentez le margin-bottom */}
                 <label
                   htmlFor="depart"
                   className="block text-base font-medium text-gray-700"
                 >
                   Départ
-                </label>{" "}
-                {/* Augmentez la taille du texte */}
+                </label>{" "} {/* Augmentez la taille du texte */}
                 <input
                   type="text"
                   id="depart"
@@ -204,8 +200,7 @@ export default function Home() {
                   onChange={handleInputChange}
                   className="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-base"
                   placeholder="Ville de départ"
-                />{" "}
-                {/* Augmentez la taille du texte et le margin-top */}
+                />{" "} {/* Augmentez la taille du texte et le margin-top */}
               </div>
               <div className="mb-6">
                 <label
@@ -289,7 +284,12 @@ export default function Home() {
                   </div>
                   <button
                     onClick={() => handleChoose(result._id)}
-                    className="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    className={`inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md ${
+                      selectedTrips.includes(result._id)
+                        ? "bg-gray-400 hover:bg-gray-500 text-white cursor-not-allowed"
+                        : "bg-blue-600 hover:bg-blue-700 text-white"
+                    } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
+                    disabled={selectedTrips.includes(result._id)}
                   >
                     Choisir
                   </button>
