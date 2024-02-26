@@ -28,13 +28,13 @@ export default function NavBar() {
       {/* Header */}
       <header className="absolute inset-x-0 top-0 z-50 bg-black-100 bg-opacity-25 ">
         <nav
-          className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+          className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8  "
           aria-label="Global"
         >
-          <div className="flex lg:flex-1 items-center">
+          <div className="flex lg:flex-1 items-center ">
             <a href="/" className="-m-1.5 p-1.5">
               <img
-                className={`h-20 w-auto ${
+                className={`h-20 w-auto  ${
                   location.pathname === "/"
                     ? "class-pour-home"
                     : "class-pour-autres-pages"
@@ -48,8 +48,10 @@ export default function NavBar() {
               />
             </a>
             <span
-              className={`ml-2 uppercase ${
-                location.pathname === "/" ? "text-white" : "text-black"
+              className={`ml-2 uppercase  ${
+                location.pathname === "/"
+                  ? "text-white text-shadow "
+                  : "text-black"
               }`}
             >
               TrainCroyable
@@ -60,7 +62,7 @@ export default function NavBar() {
             <button
               type="button"
               className={`-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 ${
-                location.pathname === "/" ? "text-white" : "text-black"
+                location.pathname === "/" ? "text-white " : "text-black"
               }`}
               onClick={() => setMobileMenuOpen(true)}
             >
@@ -68,13 +70,15 @@ export default function NavBar() {
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <div className="hidden lg:flex lg:gap-x-12 uppercase">
+          <div className="hidden lg:flex lg:gap-x-12 uppercase ">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
                 className={`text-sm font-semibold leading-6 ${
-                  location.pathname === "/" ? "text-white" : "text-black"
+                  location.pathname === "/"
+                    ? "text-white text-shadow "
+                    : "text-black"
                 } hover:border-b hover:border-blue-500`}
               >
                 {item.name}
@@ -86,7 +90,7 @@ export default function NavBar() {
             {estConnecte ? (
               <>
                 <div className="flex items-center">
-                  <div className="mr-4 flex items-center justify-center h-8 w-8 rounded-full bg-white-500 text-white">
+                  <div className="mr-4 flex items-center justify-center h-8 w-8 rounded-full bg-white-500 text-white text-shadow ">
                     {/* Remplacez-la par une image générée à partir de robohash.org */}
                     <img
                       className="rounded-full"
