@@ -279,7 +279,16 @@ export default function Home() {
                       Heure de départ: {moment(result.date).format("HH:mm")}
                     </p>
                     <p className="text-lg font-bold text-black">
-                      Prix: {result.price}€
+                      Prix:
+                      {result.price > 75 ? (
+                        <>
+                          <span className="line-through">{result.price}€</span>{" "}
+                          <span className="text-red-500">{(result.price * 0.9).toFixed(2)}€</span>
+                          <span className="text-red-500 ml-2 text-sm font-semibold">-10%</span>
+                        </>
+                      ) : (
+                        <>{result.price}€</>
+                      )}
                     </p>
                   </div>
                   <button
