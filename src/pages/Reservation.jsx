@@ -61,6 +61,23 @@ export default function Reservation() {
                         <p className="text-lg flex-shrink-0">
                           Prix: {reservation.price} €
                         </p>
+                        {/* Ajout du temps restant avant le départ */}
+                        <p className="text-lg flex-shrink-0">
+                          Départ dans:{" "}
+                          {(() => {
+                            const now = moment();
+                            const departure = moment(reservation.date);
+                            if (departure.isAfter(now)) {
+                              const duration = moment.duration(
+                                departure.diff(now)
+                              );
+                              const hours = duration.hours();
+                              return `${hours} heures`;
+                            } else {
+                              return "Départ passé";
+                            }
+                          })()}
+                        </p>
                       </div>
                     </div>
                   ))}
