@@ -53,12 +53,10 @@ export default function Reservation() {
                     >
                       <div className="flex flex-col sm:flex-row sm:flex-grow sm:items-center space-x-0 sm:space-x-20 space-y-2 sm:space-y-0">
                         <h4 className="text-xl font-semibold flex-shrink-0">
-                          Départ: {reservation.departure} - Arrivée:
-                          {reservation.arrival}
+                          {reservation.departure} {">"} {reservation.arrival}
                         </h4>
                         <p className="text-lg flex-shrink-0">
-                          Date:{" "}
-                          {moment(reservation.date).format("YYYY-MM-DD HH:mm")}
+                          {moment(reservation.date).format("HH:mm")}
                         </p>
                         <p className="text-lg flex-shrink-0">
                           Prix: {reservation.price} €

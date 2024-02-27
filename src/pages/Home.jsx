@@ -278,10 +278,10 @@ export default function Home() {
                 >
                   <div>
                     <h4 className="text-xl font-semibold">
-                      Départ: {result.departure} - Arrivée: {result.arrival}
+                      {result.departure} {">"} {result.arrival}
                     </h4>
                     <p className="text-lg">
-                      Heure de départ: {moment(result.date).format("HH:mm")}
+                      {moment(result.date).format("HH:mm")}
                     </p>
                     <p className="text-lg font-bold text-black">
                       Prix: {result.price}€

@@ -150,7 +150,7 @@ export default function Cart() {
                   <div className="md:col-span-2 bg-white shadow-lg rounded-lg p-8">
                     {/* Ajustez pour que cette div occupe 2/3 de l'espace disponible */}
                     <h2 className="text-3xl font-bold text-gray-800">
-                      Votre Panier
+                      Mon Panier
                     </h2>
                     {cartItems.map((item) => (
                       <div
@@ -159,7 +159,7 @@ export default function Cart() {
                       >
                         <div className="flex flex-col sm:flex-row sm:flex-grow sm:items-center space-x-0 sm:space-x-10 space-y-2 sm:space-y-0">
                           <h4 className="text-xl font-semibold flex-shrink-0">
-                            Départ: {item.departure} - Arrivée: {item.arrival}
+                            {item.departure} {">"} {item.arrival}
                           </h4>
                           <p className="text-lg flex-shrink-0">
                             {moment(item.date).format("HH:mm")}
