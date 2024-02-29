@@ -24,20 +24,22 @@ export default function Cart() {
     let totalSavings = 0;
     let total = 0;
 
-    cartItems.forEach(item => {
+    cartItems.forEach((item) => {
       let prixInitial = item.price;
       let prixItem = prixInitial;
+      let reduction = 0;
 
       // Réduction de 10% pour les articles de plus de 75€
       if (prixItem > 75) {
-        let reduction = prixItem * 0.1;
+        reduction = prixItem * 0.1;
         prixItem -= reduction;
         totalSavings += reduction;
       }
 
-      // Réduction supplémentaire de 10% pour les utilisateurs de moins de 25 ans
-      if (userAge < 25) {
-        let reduction = prixItem * 0.1;
+      // Réduction supplémentaire de 10% pour les utilisateurs de moins de 25 ans,
+      // appliquée uniquement si la première réduction n'a pas été appliquée
+      if (userAge < 25 && prixInitial <= 75) {
+        reduction = prixItem * 0.1;
         prixItem -= reduction;
         totalSavings += reduction;
       }
@@ -47,7 +49,6 @@ export default function Cart() {
 
     return { total, totalSavings };
   };
-
   useEffect(() => {
     // Vérifiez si un token existe dans le localStorage
     const token = localStorage.getItem("token");
@@ -198,31 +199,24 @@ export default function Cart() {
                           <p className="text-lg flex-shrink-0">
                             {moment(item.date).format("HH:mm")}
                           </p>
-                          <div className="text-lg flex-shrink-0">
-                            <span className="font-bold text-black">
-                              Prix: 
-                            </span>
-                            <span className="line-through">
-                              {item.price}€
-                            </span>
+                          <div className="text-lg flex-shrink-0 ">
+                            <span className="font-bold text-black">Prix: </span>
+                            <span className="line-through">{item.price}€</span>
                             {item.price > 75 && (
                               <>
                                 <span className="font-bold text-red-500">
                                   {" -10% "}
                                 </span>
-                                <span>
-                                  {(item.price * 0.9).toFixed(2)}€
-                                </span>
+                                <span>{(item.price * 0.9).toFixed(2)}€</span>
                               </>
                             )}
                             {userAge < 25 && (
                               <>
                                 <span className="font-bold text-red-500">
-                                  {item.price > 75 ? "  -10%  " : " -10% "}
+                                  {" -10% "}
                                 </span>
-                                <span>
-                                  {item.price > 75 ? ((item.price * 0.81).toFixed(2)) : ((item.price * 0.9).toFixed(2))}€
-                                </span>
+                                {/* Calcul et affichage du nouveau prix après réduction pour l'âge */}
+                                <span>{(item.price * 0.9).toFixed(2)}€</span>
                               </>
                             )}
                           </div>
@@ -292,4 +286,3 @@ export default function Cart() {
     </div>
   );
 }
-
