@@ -201,16 +201,17 @@ export default function Cart() {
                           </p>
                           <div className="text-lg flex-shrink-0 ">
                             <span className="font-bold text-black">Prix: </span>
-                            <span className="line-through">{item.price}€</span>
 
-                            {userAge < 25 && (
+                            {/* Afficher le prix après réduction uniquement si l'utilisateur est connecté et éligible à la réduction */}
+                            {isLoggedIn && userAge < 25 ? (
                               <>
                                 <span className="font-bold text-red-500">
                                   {" -10% "}
                                 </span>
-                                {/* Calcul et affichage du nouveau prix après réduction pour l'âge */}
                                 <span>{(item.price * 0.9).toFixed(2)}€</span>
                               </>
+                            ) : (
+                              <span>{item.price}€</span> // Afficher le prix normal si pas de réduction
                             )}
                           </div>
                         </div>
@@ -238,7 +239,7 @@ export default function Cart() {
                     <div className="flex justify-between items-center mt-8 p-4 bg-gray-100 rounded-lg">
                       <h3 className="text-xl font-semibold">Total Prix : </h3>
                       <p className="text-xl">
-                        {calculateTotalAndSavings().total.toFixed(2)}€
+                        {isLoggedIn ? calculateTotalAndSavings().total.toFixed(2) : cartItems.reduce((acc, item) => acc + item.price, 0).toFixed(2)}€
                       </p>
                     </div>
                     <div className="flex justify-between items-center mt-4 p-4 bg-gray-100 rounded-lg">
@@ -246,7 +247,7 @@ export default function Cart() {
                         Économies réalisées :{" "}
                       </h3>
                       <p className="text-xl">
-                        {calculateTotalAndSavings().totalSavings.toFixed(2)}€
+                        {isLoggedIn ? calculateTotalAndSavings().totalSavings.toFixed(2) : "0.00"}€
                       </p>
                     </div>
                     <div className="flex justify-end space-x-4 mt-8">
