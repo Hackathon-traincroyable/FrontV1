@@ -202,14 +202,7 @@ export default function Cart() {
                           <div className="text-lg flex-shrink-0 ">
                             <span className="font-bold text-black">Prix: </span>
                             <span className="line-through">{item.price}€</span>
-                            {item.price > 75 && (
-                              <>
-                                <span className="font-bold text-red-500">
-                                  {" -10% "}
-                                </span>
-                                <span>{(item.price * 0.9).toFixed(2)}€</span>
-                              </>
-                            )}
+
                             {userAge < 25 && (
                               <>
                                 <span className="font-bold text-red-500">
