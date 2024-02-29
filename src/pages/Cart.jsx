@@ -29,7 +29,7 @@ export default function Cart() {
       let prixItem = prixInitial;
       let reduction = 0;
 
-      // Réduction de 10% pour les articles de plus de 75€
+      // Réduction de 10% pour les articles de plus de 75€ pour tous les utilisateurs
       if (prixItem > 75) {
         reduction = prixItem * 0.1;
         prixItem -= reduction;
@@ -37,8 +37,8 @@ export default function Cart() {
       }
 
       // Réduction supplémentaire de 10% pour les utilisateurs de moins de 25 ans,
-      // appliquée uniquement si la première réduction n'a pas été appliquée
-      if (userAge < 25 && prixInitial <= 75) {
+      // appliquée uniquement si l'utilisateur est connecté et que la première réduction n'a pas été appliquée
+      if (isLoggedIn && userAge < 25 && prixInitial <= 75) {
         reduction = prixItem * 0.1;
         prixItem -= reduction;
         totalSavings += reduction;
@@ -201,9 +201,18 @@ export default function Cart() {
                           </p>
                           <div className="text-lg flex-shrink-0 ">
                             <span className="font-bold text-black">Prix: </span>
-
-                            {/* Afficher le prix après réduction uniquement si l'utilisateur est connecté et éligible à la réduction */}
-                            {isLoggedIn && userAge < 25 ? (
+                            {isLoggedIn ? (
+                              userAge < 25 ? (
+                                <>
+                                  <span className="font-bold text-red-500">
+                                    {" -10% "}
+                                  </span>
+                                  <span>{(item.price * 0.9).toFixed(2)}€</span>
+                                </>
+                              ) : (
+                                <span>{item.price}€</span>
+                              )
+                            ) : item.price > 75 ? (
                               <>
                                 <span className="font-bold text-red-500">
                                   {" -10% "}
@@ -211,7 +220,7 @@ export default function Cart() {
                                 <span>{(item.price * 0.9).toFixed(2)}€</span>
                               </>
                             ) : (
-                              <span>{item.price}€</span> // Afficher le prix normal si pas de réduction
+                              <span>{item.price}€</span>
                             )}
                           </div>
                         </div>
@@ -239,7 +248,7 @@ export default function Cart() {
                     <div className="flex justify-between items-center mt-8 p-4 bg-gray-100 rounded-lg">
                       <h3 className="text-xl font-semibold">Total Prix : </h3>
                       <p className="text-xl">
-                        {isLoggedIn ? calculateTotalAndSavings().total.toFixed(2) : cartItems.reduce((acc, item) => acc + item.price, 0).toFixed(2)}€
+                        {calculateTotalAndSavings().total.toFixed(2)}€
                       </p>
                     </div>
                     <div className="flex justify-between items-center mt-4 p-4 bg-gray-100 rounded-lg">
@@ -247,7 +256,7 @@ export default function Cart() {
                         Économies réalisées :{" "}
                       </h3>
                       <p className="text-xl">
-                        {isLoggedIn ? calculateTotalAndSavings().totalSavings.toFixed(2) : "0.00"}€
+                        {calculateTotalAndSavings().totalSavings.toFixed(2)}€
                       </p>
                     </div>
                     <div className="flex justify-end space-x-4 mt-8">
