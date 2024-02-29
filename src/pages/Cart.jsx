@@ -20,19 +20,32 @@ export default function Cart() {
     }
   };
 
-  const calculateTotal = () => {
-    // Calculer le total en vérifiant chaque article individuellement
-    const total = cartItems.reduce((total, item) => {
-      // Si le prix de l'article dépasse 75 euros, appliquer une réduction de 10%
-      if (item.price > 75) {
-        return total + (item.price * 0.9); // Appliquer 10% de réduction
-      } else {
-        // Sinon, ajouter le prix de l'article tel quel
-        return total + item.price;
-      }
-    }, 0);
+  const calculateTotalAndSavings = () => {
+    let totalSavings = 0;
+    let total = 0;
 
-    return total;
+    cartItems.forEach(item => {
+      let prixInitial = item.price;
+      let prixItem = prixInitial;
+
+      // Réduction de 10% pour les articles de plus de 75€
+      if (prixItem > 75) {
+        let reduction = prixItem * 0.1;
+        prixItem -= reduction;
+        totalSavings += reduction;
+      }
+
+      // Réduction supplémentaire de 10% pour les utilisateurs de moins de 25 ans
+      if (userAge < 25) {
+        let reduction = prixItem * 0.1;
+        prixItem -= reduction;
+        totalSavings += reduction;
+      }
+
+      total += prixItem;
+    });
+
+    return { total, totalSavings };
   };
 
   useEffect(() => {
@@ -185,20 +198,34 @@ export default function Cart() {
                           <p className="text-lg flex-shrink-0">
                             {moment(item.date).format("HH:mm")}
                           </p>
-                          {item.price > 75 ? (
-                            <div className="text-lg flex-shrink-0">
-                              <span className="font-bold text-black line-through">
-                                Prix: {item.price}€
-                              </span>
-                              <span className="font-bold text-red-500">
-                                {" -10% "} {(item.price * 0.9).toFixed(2)}€
-                              </span>
-                            </div>
-                          ) : (
-                            <p className="text-lg flex-shrink-0 font-bold text-black">
-                              Prix: {item.price}€
-                            </p>
-                          )}
+                          <div className="text-lg flex-shrink-0">
+                            <span className="font-bold text-black">
+                              Prix: 
+                            </span>
+                            <span className="line-through">
+                              {item.price}€
+                            </span>
+                            {item.price > 75 && (
+                              <>
+                                <span className="font-bold text-red-500">
+                                  {" -10% "}
+                                </span>
+                                <span>
+                                  {(item.price * 0.9).toFixed(2)}€
+                                </span>
+                              </>
+                            )}
+                            {userAge < 25 && (
+                              <>
+                                <span className="font-bold text-red-500">
+                                  {item.price > 75 ? "  -10%  " : " -10% "}
+                                </span>
+                                <span>
+                                  {item.price > 75 ? ((item.price * 0.81).toFixed(2)) : ((item.price * 0.9).toFixed(2))}€
+                                </span>
+                              </>
+                            )}
+                          </div>
                         </div>
                         <button
                           onClick={() => handleRemoveFromCart(item._id)}
@@ -224,7 +251,15 @@ export default function Cart() {
                     <div className="flex justify-between items-center mt-8 p-4 bg-gray-100 rounded-lg">
                       <h3 className="text-xl font-semibold">Total Prix : </h3>
                       <p className="text-xl">
-                        {calculateTotal().toFixed(2)}€
+                        {calculateTotalAndSavings().total.toFixed(2)}€
+                      </p>
+                    </div>
+                    <div className="flex justify-between items-center mt-4 p-4 bg-gray-100 rounded-lg">
+                      <h3 className="text-xl font-semibold">
+                        Économies réalisées :{" "}
+                      </h3>
+                      <p className="text-xl">
+                        {calculateTotalAndSavings().totalSavings.toFixed(2)}€
                       </p>
                     </div>
                     <div className="flex justify-end space-x-4 mt-8">
@@ -257,3 +292,4 @@ export default function Cart() {
     </div>
   );
 }
+
