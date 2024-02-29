@@ -49,6 +49,7 @@ export default function Cart() {
 
     return { total, totalSavings };
   };
+
   useEffect(() => {
     // Vérifiez si un token existe dans le localStorage
     const token = localStorage.getItem("token");
@@ -204,20 +205,28 @@ export default function Cart() {
                             {isLoggedIn ? (
                               userAge < 25 ? (
                                 <>
-                                  <span className="font-bold text-red-500">
-                                    {" -10% "}
+                                  <span className="line-through">
+                                    {item.price}€{" "}
                                   </span>
-                                  <span>{(item.price * 0.9).toFixed(2)}€</span>
+                                  <span className="font-bold text-red-500 ml-2">
+                                    {" "}
+                                    {" -10% "}
+                                    {(item.price * 0.9).toFixed(2)}€
+                                  </span>
                                 </>
                               ) : (
                                 <span>{item.price}€</span>
                               )
                             ) : item.price > 75 ? (
                               <>
-                                <span className="font-bold text-red-500">
-                                  {" -10% "}
+                                <span className="line-through">
+                                  {item.price}€
                                 </span>
-                                <span>{(item.price * 0.9).toFixed(2)}€</span>
+                                <span className="font-bold text-red-500 ml-2">
+                                  {" "}
+                                  {" -10% "}
+                                  {(item.price * 0.9).toFixed(2)}€
+                                </span>
                               </>
                             ) : (
                               <span>{item.price}€</span>
